@@ -18,6 +18,8 @@ import NavBar from './components/NavBar'
 // style
 import { useTheme } from './contexts/ThemeContext.jsx'
 import { useJwt } from './contexts/JwtContext.jsx'
+import UpdateClient from './pages/UpdateClient.jsx'
+import AddNewClient from './pages/AddNewClient.jsx'
 
 const App=()=> {
 
@@ -34,6 +36,8 @@ const App=()=> {
     <Route path="client" element={<Client/>}/>
     <Route path="dentist" element={<Dentist/>}/>
     <Route path="appointment" element={<Appointment/>}/>
+    <Route path="updateClient/:id" element={<UpdateClient/>}/>
+    <Route path="addNewClient" element={<AddNewClient/>}/>
 
 
   </Routes>

@@ -6,7 +6,6 @@ const ClientList = (prop) => {
     
     return ( 
         <>
-        <h1>All clients list:</h1>
         <div>
     
             {clients && clients.map((item)=>{
