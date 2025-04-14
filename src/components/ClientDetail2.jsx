@@ -24,6 +24,7 @@ const ClientDetail2 = (prop) => {
         if(e.nativeEvent.submitter.id==="btnUpdate2"){
             navigate(`/updateClient/${client.clientId}`)
         }
+       /*
         if(e.nativeEvent.submitter.id==="btnUpdate"){
             console.log("handle submit")
 
@@ -52,9 +53,7 @@ const ClientDetail2 = (prop) => {
 
 
         }
-        if(e.nativeEvent.submitter.id==="btnDelete"){
-            console.log("handle delete")
-        }
+       */
         
        
     }

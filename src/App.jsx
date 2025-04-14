@@ -20,6 +20,8 @@ import { useTheme } from './contexts/ThemeContext.jsx'
 import { useJwt } from './contexts/JwtContext.jsx'
 import UpdateClient from './pages/UpdateClient.jsx'
 import AddNewClient from './pages/AddNewClient.jsx'
+import UpdateDentist from './pages/UpdateDentist.jsx'
+import AddNewDentist from './pages/AddNewDentist.jsx'
 
 const App=()=> {
 
@@ -38,6 +40,8 @@ const App=()=> {
     <Route path="appointment" element={<Appointment/>}/>
     <Route path="updateClient/:id" element={<UpdateClient/>}/>
     <Route path="addNewClient" element={<AddNewClient/>}/>
+    <Route path="updateDentist/:id" element={<UpdateDentist/>}/>
+    <Route path="addNewDentist" element={<AddNewDentist/>}/>
 
 
   </Routes>
