@@ -78,7 +78,6 @@ const UpdateClient = () => {
 
 
     if(e.nativeEvent.submitter.id==="btnBack"){
-        window.alert("back")
         navigate("/client")
     }
 
