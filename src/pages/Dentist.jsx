@@ -92,6 +92,9 @@ const Dentist = () => {
 
     }
 
+    const handleAddNewDentist=()=>{
+        navigate("/addNewDentist")
+     }
     return ( 
         <>
         <h1>Dentist page</h1>
@@ -106,6 +109,8 @@ const Dentist = () => {
         </select>
         <input type="text" id="dentistAttribute" placeholder="value"/>
         <button onClick={handleGetDentist}>Get dentist</button>
+        <button onClick={handleAddNewDentist}>Add new dentist</button>
+
         <div>
             {dentistDetailsVisible && item && <DentistDetail item={item}/> }  
         </div>
@@ -115,6 +120,7 @@ const Dentist = () => {
         
 
         </div>
+        
         </>
      );
 }
