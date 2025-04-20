@@ -11,12 +11,14 @@ const Appointment = () => {
     const [appointmentTime,setAppointmentTime]=useState(null)
     const [clientName,setClientName]=useState("")
     const [dentistName,setDentistName]=useState("")
+    const [appointmentDescription,setAppointmentDescription]=useState("")
+
 
 
     const handleSubmit=async (e)=>{
         e.preventDefault()
         
-       const message=`${clientName}+"|"+${dentistName}+"|"+${appointmentDate}+"|"+${appointmentTime}`
+       const message=`${clientName}+"|"+${dentistName}+"|"+${appointmentDate}+"|"+${appointmentTime}+"|"+${appointmentDescription}`
         console.log(message)
         // pronadji dentistov id
 /*
@@ -50,6 +52,7 @@ const Appointment = () => {
         console.log(responseDentist.data[0].dentistId)
         console.log(responseDentist.data[0].contact)
         console.log(responseDentist.data[0].fullName)
+        
 
         /*
         //
@@ -94,8 +97,70 @@ const Appointment = () => {
         // proveri da li izabrani lekar ima vec zakazano
         // ako ima, izbaci upozorenje i izadji iz funkcije
         // ako nema, nastavi dalje...
+
+        const dentistId=responseDentist.data[0].dentistId
+        const clientId=responseClient.data[0].clientId
+
+        const appoinmentScheduled=appointmentDate+"T"+appointmentTime+":00.000+04"
+        //2013-07-10T11:00:00.000+00:00
+        // obrati paznju na timezone offset
+        window.alert(appoinmentScheduled)
+
+        const newAppointment={
+            "description":appointmentDescription,
+            "dentistId":dentistId,
+            "clientId":clientId,
+            "appointmentDateAndTime":appoinmentScheduled,
+            "price":0,
+            "completed":false
+            // key names moraju odgovarati nazivima u dto u servisu
+
+
+        }
         
+        const responseAppointment=await axios({
+            url:`http://localhost:8080/appointment`,
+            method:"POST",
+            mode:"cors",
+            data:newAppointment,
+            headers:{
+                'Authorization': `Bearer ${jwt2}`,
+                'Content-Type': 'application/json',
+            }
+        }
+            
+            /*
+            body:JSON.stringify({
+                description:appointmentDescription,
+                clientId:dentistId,
+                dentistId:clientId,
+                appointmentDateAndTime:appoinmentScheduled,
+                price:0,
+                completed:false
+
+          
+            }),*/
+            
+            
+
+
         
+        ).then((response)=>{
+            const responseData=response.data
+            window.alert("zakazan termin")
+            const appointId=responseData.appointmentId
+            const appointDateAndTime=responseData.appointmentDateAndTime
+            const clientId=responseData.client.clientId
+            const clientName=responseData.client.fullName
+            console.log(appointId+"|"+appointDateAndTime+"|"+clientId+"|"+clientName
+            )
+            
+            
+        }).catch((error)=>{
+            window.alert(error.response.data.errorMessage)
+        })
+        
+       
 
     }
     return ( 
@@ -108,6 +173,7 @@ const Appointment = () => {
             <input type="time" onChange={e=>{setAppointmentTime(e.target.value)}}/>
             <input type="text" placeholder="Dentist: " id="dentistFullName" onChange={e=>{setDentistName(e.target.value)}}/>
             <input type="text" placeholder="Client Full Name:" id="clientFullName" onChange={e=>{setClientName(e.target.value)}}/>
+            <textarea placeholder="description:" id="appointmentDescription" onChange={e=>{setAppointmentDescription(e.target.value)}}/>
             <button type="submit" onClick={handleSubmit}>Save</button>
             
         </form>
