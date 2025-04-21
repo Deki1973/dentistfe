@@ -1,4 +1,4 @@
-import ClientDetail from "./ClientDetail";
+import ClientDetail2 from "./ClientDetail";
 
 const ClientList = (prop) => {
 
@@ -11,7 +11,7 @@ const ClientList = (prop) => {
             {clients && clients.map((item)=>{
                 return(
                 <div key={item.clientId}>
-                    <ClientDetail item={item}/>
+                    <ClientDetail2 item={item}/>
                 </div>
                 )
                 

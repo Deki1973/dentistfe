@@ -50,6 +50,12 @@ const UpdateAppointment =() => {
 
     }
 
+
+    const handleSubmit=async (e)=>{
+        e.preventDefault()
+        console.log(e.nativeEvent.submitter.id)
+    }
+
     
     useEffect(() => {
         //const singleBook = books.filter((item) => item?._id == id);
@@ -75,6 +81,11 @@ const UpdateAppointment =() => {
        <li>{dentistName}, ID:{dentistId}</li>
        
     </ul>
+    <form action="submit" onSubmit={handleSubmit}>
+    <button type="submit" id="btnSave">Save</button>
+            <button type="submit" id="btnBack">Back</button>
+            <button type="submit" id="btnDelete">Delete</button>
+    </form>
     </> );
 }
  
