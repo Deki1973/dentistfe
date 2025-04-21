@@ -30,10 +30,6 @@ const DentistDetail = (prop) => {
             <li>Contact: {dentist.contact}</li>
             <form action="submit" onSubmit={handleSubmit}>
 
-            
-           
-            
-           
             <button type="submit" id="btnUpdate2">Edit</button>
         
             

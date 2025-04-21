@@ -23,6 +23,7 @@ import AddNewClient from './pages/AddNewClient.jsx'
 import UpdateDentist from './pages/UpdateDentist.jsx'
 import AddNewDentist from './pages/AddNewDentist.jsx'
 import CreateNewAppointment from './pages/CreateNewAppointment.jsx'
+import UpdateAppointment from './pages/UpdateAppointment.jsx'
 
 const App=()=> {
 
@@ -44,6 +45,7 @@ const App=()=> {
     <Route path="updateDentist/:id" element={<UpdateDentist/>}/>
     <Route path="addNewDentist" element={<AddNewDentist/>}/>
     <Route path="createNewAppointment" element={<CreateNewAppointment/>}/>
+    <Route path="updateAppointment/:id" element={<UpdateAppointment/>}/>
 
 
   </Routes>
