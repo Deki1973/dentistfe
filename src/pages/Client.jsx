@@ -6,6 +6,7 @@ import { useJwt } from "../contexts/JwtContext"
 import ClientDetail from "../components/ClientDetail"
 import ClientDetail2 from "../components/ClientDetail2"
 import { Navigate, useNavigate } from "react-router-dom"
+import axios from "axios"
 
 const Client = () => {
     
@@ -150,7 +151,56 @@ const Client = () => {
         setClientDetailsVisible(false)
 
     }
+    
 
+    const handleSubmit=async (e)=>{
+        e.preventDefault()
+        console.log("handle submit...")
+        console.log(e.nativeEvent.submitter.id)
+        const clientAttribute=document.getElementById("select1").value
+        const clientAttributeValue=document.getElementById("clientAttributeValue").value
+
+        console.log(clientAttribute)
+        console.log(clientAttributeValue)
+
+        const url=`http://localhost:8080/client/${clientAttribute}/${clientAttributeValue}`
+        console.log(url)
+        const response=await axios(url,{
+            method:"GET",
+            mode:"cors",
+            headers:{
+                'Authorization': `Bearer ${jwt2}`,
+                'Content-Type': 'application/json',
+            }
+        }).then((response)=>{
+
+            const data=response.data
+            if(clientAttribute==="id" || clientAttribute==="contact"){
+                
+                console.log(data)
+                setItem(data)
+                setClientListVisible(false)
+                setClientDetailsVisible(true)
+            }
+            if(clientAttribute==="name"){
+                console.log(data.length)
+                if(data.length>1){
+                    window.alert("mulitple answers")
+                    return
+                }
+                setClients(data)
+                setClientListVisible(true)
+                setClientDetailsVisible(false)
+
+            }
+            
+            
+            
+            
+            
+        }).catch((error)=>{console.log(error.message)})
+        
+    }
     const handleAddNewClient=()=>{
        navigate("/addNewClient")
     }
@@ -165,9 +215,20 @@ const Client = () => {
         <button id="btnFindByClientId" onClick={handleFindByClientId}>Find By Client ID</button>
         <button id="btnAddNewClient" onClick={handleAddNewClient}>Add New Client</button>
         <button id="btnFindByClienFullName" onClick={handleFindByClientFullName}>Find By Name</button>
+        <br />
+        <form action="submit" onSubmit={handleSubmit}>
+        <select id="select1">
+            <option value="id">Clent ID: </option>
+            <option value="name">Full Name: </option>
+            <option value="contact">Contact: </option>
+        </select>
+        <input type="text" id="clientAttributeValue" placeholder="Enter search parameter value: "/>
+        <button type="submit" id="btnGetClient">Get Client</button>
+        </form>
         <button onClick={handleGetAll}>Get All</button>
         <button onClick={handleGetByContact}>Find By Contact</button>
         <button onClick={handleClick3}>Test</button>
+        
         <div>
             {clientDetailsVisible && item && <ClientDetail2 item={item}/> }  
         </div>
