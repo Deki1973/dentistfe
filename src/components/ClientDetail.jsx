@@ -1,6 +1,7 @@
 const ClientDetail = (prop) => {
     const client=prop.item
     return (<> 
+    <p>Client Detail 1</p>
         <ul>
             <li>Client ID: {client.clientId}</li>
             <li>Full Name: {client.fullName}</li>

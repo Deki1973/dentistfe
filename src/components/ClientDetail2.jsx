@@ -24,36 +24,7 @@ const ClientDetail2 = (prop) => {
         if(e.nativeEvent.submitter.id==="btnUpdate2"){
             navigate(`/updateClient/${client.clientId}`)
         }
-       /*
-        if(e.nativeEvent.submitter.id==="btnUpdate"){
-            console.log("handle submit")
-
-            const response=await fetch(`http://localhost:8080/client/${clientId}`, {
-                method:"PUT",
-                mode:"cors",
-                body:JSON.stringify({
-                 fullName:fullName,
-                 contact:contact,
-                 note:note
-                   
-                }),
-                headers:{
-                 'Authorization': `Bearer ${jwt2}`,
-                 'Content-Type': 'application/json',
-             }
-             });
-             console.log(response)
-             const clientJson=await response.json()
-             console.log(clientJson)
-            
-            
-            
-
-
-
-
-        }
-       */
+     
         
        
     }
@@ -68,22 +39,14 @@ const ClientDetail2 = (prop) => {
       });
     
     return (<> 
+    <p>ClientDetail2</p>
         <ul>
             <li>Client ID: {client.clientId}</li>
             <li>Full Name: {client.fullName}</li>
             <li>Contact: {client.contact}</li>
             
-            <form action="submit" onSubmit={handleSubmit}>
-
-            
-           
-            
-           
-            <button type="submit" id="btnUpdate2">Edit</button>
-        
-            
-            
-
+            <form action="submit" onSubmit={handleSubmit}>       
+                <button type="submit" id="btnUpdate2">Edit</button>
             </form>
             
 

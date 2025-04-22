@@ -1,4 +1,4 @@
-import ClientDetail2 from "./ClientDetail";
+import ClientDetail2 from "./ClientDetail2";
 
 const ClientList = (prop) => {
 

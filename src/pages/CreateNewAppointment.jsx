@@ -19,17 +19,7 @@ const CreateNewAppointment = () => {
         
        const message=`${clientName}+"|"+${dentistName}+"|"+${appointmentDate}+"|"+${appointmentTime}+"|"+${appointmentDescription}`
         console.log(message)
-        // pronadji dentistov id
-/*
-        const responseDent=await fetch(`http://localhost:8080/dentist/name/${dentistName}`,{
-            method:"GET",
-            mode:"cors",
-            headers:{
-                'Authorization': `Bearer ${jwt2}`,
-                'Content-Type': 'application/json',
-            }
-        })
-*/
+       
         const responseDentist=await axios(`http://localhost:8080/dentist/name/${dentistName}`,{
             method:"GET",
             mode:"cors",
@@ -53,23 +43,6 @@ const CreateNewAppointment = () => {
         console.log(responseDentist.data[0].fullName)
         
 
-        /*
-        //
-        // response je malo drugaciji kada se koristi axios u odnosu na fetch
-        //
-        const dentistData=await responseDent.json()
-        console.log(dentistData)
-        if (dentistData.length>1){
-            window.alert("multiple answers\nyou have to be more precise")
-            return
-        }
-            
-        const dentistId1=dentistData[0].dentistId
-        console.log(`dentists id is ${dentistId1}`)
-        */
-        // pronadji clientov id
-
-        //const headers1={'Authorization':'Bearer '}
         const responseClient=await axios(`http://localhost:8080/client/name/${clientName}`,{
             method:"GET",
             mode:"cors",
@@ -128,21 +101,7 @@ const CreateNewAppointment = () => {
             }
         }
             
-            /*
-            body:JSON.stringify({
-                description:appointmentDescription,
-                clientId:dentistId,
-                dentistId:clientId,
-                appointmentDateAndTime:appoinmentScheduled,
-                price:0,
-                completed:false
-
           
-            }),*/
-            
-            
-
-
         
         ).then((response)=>{
             const responseData=response.data
