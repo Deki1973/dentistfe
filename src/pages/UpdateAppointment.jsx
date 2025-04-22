@@ -11,6 +11,8 @@ const UpdateAppointment =() => {
 
     const{jwt2}=useJwt()
 
+    const navigate=useNavigate();
+
     //const[appointmentData,setAppointmentData]=useState({}) nece da radi, ne znam zasto
     const[appointmentId,setAppointmentId]=useState(id)
     const[clientName,setClientName]=useState("")
@@ -19,7 +21,11 @@ const UpdateAppointment =() => {
     const[dentistId,setDentistId]=useState(null)
     const[description,setDescription]=useState("")
     const[appointmentDateAndTime, setAppointmentDateAndTime]=useState(null)
+    const[price,setPrice]=useState(0)
+    const[completed,setCompleted]=useState(null)
 
+    const [appointmentDate,setAppointmentDate]=useState(null)
+    const [appointmentTime,setAppointmentTime]=useState(null)
 
     const getAppointmentById=async (e)=>{
         console.log("get appointment by id..."+id)
@@ -43,17 +49,102 @@ const UpdateAppointment =() => {
         setDentistName(data.dentist.fullName)
         setDentistId(data.dentist.dentistId)
         setAppointmentDateAndTime(data.appointmentDateAndTime)
-
+        setPrice(data.price)
+        if(data.completed===null){
+            setCompleted(false)
+        }else{setCompleted(data.completed)}
+        
+        
       
         
 
 
     }
 
-
+   
     const handleSubmit=async (e)=>{
         e.preventDefault()
         console.log(e.nativeEvent.submitter.id)
+        if(e.nativeEvent.submitter.id==="btnBack"){
+            navigate("/appointment")
+        }
+        if(e.nativeEvent.submitter.id==="btnDelete"){
+            const confirm=window.confirm("WARNING! This operation cannot be undone!\nAre you sure?")
+            if (confirm===true){
+                const response=await axios(`http://localhost:8080/appointment/${id}`,{
+                    method:"DELETE",
+                    mode:"cors",
+                    headers:{
+                        'Authorization': `Bearer ${jwt2}`,
+                        'Content-Type': 'application/json',
+                    }
+                }).then((response)=>{
+                    
+                    window.alert(response.data)
+                    navigate("/appointment")
+                }).catch((error)=>{
+                    window.alert(error.message)
+                })
+            }else{return}
+        }
+        if(e.nativeEvent.submitter.id==="btnSave"){
+            console.log("save...")
+            const updatedAppointment={
+                "appointmentId":id,
+                "description":description,
+                "appointmentDateAndTime":appointmentDateAndTime,
+                "clientId":clientId,
+                "dentistId":dentistId,
+                "completed":completed,
+                "price":price
+               
+                // key names moraju odgovarati nazivima u dto u servisu
+    
+    
+            }
+            const response=await axios(`http://localhost:8080/appointment/${id}`,{
+                method:"PUT",
+                mode:"cors",
+                data:updatedAppointment,
+                headers:{
+                    'Authorization': `Bearer ${jwt2}`,
+                    'Content-Type': 'application/json',
+                }
+
+            }).then((response)=>{console.log(response)}).catch((error)=>{console.log(error.message)})
+
+            /*
+            const response=await fetch(`http://localhost:8080/appointment/${id}`,
+                {
+                    method:"PUT",
+                    mode:"cors",
+                    headers:{
+                        'Authorization': `Bearer ${jwt2}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body:JSON.stringify({
+                       
+                        appointmentId:id,
+                        description:description,
+                        appointmentDateAndTime:appointmentDateAndTime,
+                        clientId:clientId,
+                        dentistId:dentistId,
+                        completed:completed,
+                        price:price
+                       
+                       
+       
+                   
+                          
+                       }),
+             
+                }
+            )
+            console.log(response)
+            */
+           
+        }
+            
     }
 
     
@@ -82,6 +173,20 @@ const UpdateAppointment =() => {
        
     </ul>
     <form action="submit" onSubmit={handleSubmit}>
+    <input type="date" onChange={e=>{
+                setAppointmentDate(e.target.value)
+            }}/>
+            <input type="time" onChange={e=>{setAppointmentTime(e.target.value)}}/>
+            <input type="text" value={appointmentDateAndTime} onChange={e=>{setAppointmentDateAndTime(e.target.value)}}/>
+        <input type="text" id="description" value={description} onChange={e=>{setDescription(e.target.value)}}/>
+        <input type="text" id="price" value={price} onChange={e=>{setPrice(e.target.value)}}/>
+        <input type="checkbox" id="completed" checked={completed} onChange={e=>{
+            
+            setCompleted((completed)=>!completed)
+            console.log(completed)
+            }}/>
+        <br />
+
     <button type="submit" id="btnSave">Save</button>
             <button type="submit" id="btnBack">Back</button>
             <button type="submit" id="btnDelete">Delete</button>
