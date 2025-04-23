@@ -7,6 +7,7 @@ import { useJwt } from "../contexts/JwtContext"
 import ClientDetail2 from "../components/ClientDetail2"
 import { Navigate, useNavigate } from "react-router-dom"
 import axios from "axios"
+import { urlHeroku } from "../script/urls"
 
 const Client = () => {
     
@@ -68,6 +69,7 @@ const Client = () => {
         console.log(clientAttributeValue)
 
         const url=`http://localhost:8080/client/${clientAttribute}/${clientAttributeValue}`
+        
         console.log(url)
         const response=await axios(url,{
             method:"GET",
