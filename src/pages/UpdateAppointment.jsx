@@ -26,7 +26,7 @@ const UpdateAppointment =() => {
 
     const [appointmentDate,setAppointmentDate]=useState(null)
     const [appointmentTime,setAppointmentTime]=useState(null)
-
+    
     const getAppointmentById=async (e)=>{
         console.log("get appointment by id..."+id)
         const response=await axios(`http://localhost:8080/appointment/${id}`,
@@ -66,7 +66,7 @@ const UpdateAppointment =() => {
         e.preventDefault()
         console.log(e.nativeEvent.submitter.id)
         if(e.nativeEvent.submitter.id==="btnBack"){
-            navigate("/appointment")
+            navigate(`/appointment/${appointmentId}`)
         }
         if(e.nativeEvent.submitter.id==="btnDelete"){
             const confirm=window.confirm("WARNING! This operation cannot be undone!\nAre you sure?")
@@ -111,38 +111,19 @@ const UpdateAppointment =() => {
                     'Content-Type': 'application/json',
                 }
 
-            }).then((response)=>{console.log(response)}).catch((error)=>{console.log(error.message)})
-
-            /*
-            const response=await fetch(`http://localhost:8080/appointment/${id}`,
-                {
-                    method:"PUT",
-                    mode:"cors",
-                    headers:{
-                        'Authorization': `Bearer ${jwt2}`,
-                        'Content-Type': 'application/json',
-                    },
-                    body:JSON.stringify({
-                       
-                        appointmentId:id,
-                        description:description,
-                        appointmentDateAndTime:appointmentDateAndTime,
-                        clientId:clientId,
-                        dentistId:dentistId,
-                        completed:completed,
-                        price:price
-                       
-                       
-       
-                   
-                          
-                       }),
-             
+            }).then((response)=>{
+                console.log(response)
+                console.log(response.request.status)
+                console.log(response.data)
+                if(response.data==="Rows affected: 1" && response.request.status===200){
+                    window.alert("Appointment ID "+appointmentId+" updated.")
+                    
                 }
-            )
-            console.log(response)
-            */
-           
+
+            }).catch((error)=>{
+                console.log(error.message)
+                window.alert("ERROR: "+error.message)
+            })
         }
             
     }
@@ -170,6 +151,8 @@ const UpdateAppointment =() => {
        <li>{description}</li>
        <li>{appointmentDateAndTime}</li>
        <li>{dentistName}, ID:{dentistId}</li>
+       <li>Price:{price}</li>
+       <li>Completed: {completed ? "Yes":"No"}</li>
        
     </ul>
     <form action="submit" onSubmit={handleSubmit}>
@@ -178,9 +161,9 @@ const UpdateAppointment =() => {
             }}/>
             <input type="time" onChange={e=>{setAppointmentTime(e.target.value)}}/>
             <input type="text" value={appointmentDateAndTime} onChange={e=>{setAppointmentDateAndTime(e.target.value)}}/>
-        <input type="text" id="description" value={description} onChange={e=>{setDescription(e.target.value)}}/>
-        <input type="text" id="price" value={price} onChange={e=>{setPrice(e.target.value)}}/>
-        <input type="checkbox" id="completed" checked={completed} onChange={e=>{
+           <input type="text" id="description" value={description} onChange={e=>{setDescription(e.target.value)}}/>
+            <input type="text" id="price" value={price} onChange={e=>{setPrice(e.target.value)}}/>
+          <input type="checkbox" id="completed" checked={completed} onChange={e=>{
             
             setCompleted((completed)=>!completed)
             console.log(completed)
