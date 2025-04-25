@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useJwt } from "../contexts/JwtContext";
 import axios from "axios";
 
@@ -12,12 +12,16 @@ const CreateNewAppointment = () => {
     const [clientName,setClientName]=useState("")
     const [dentistName,setDentistName]=useState("")
     const [appointmentDescription,setAppointmentDescription]=useState("")
+    const [appointmentDateAndTime,setAppointmentDateAndTime]=useState(null)
+
+    let pickerDefaultValue
 
     
     const handleSubmit=async (e)=>{
         e.preventDefault()
         
-       const message=`${clientName}+"|"+${dentistName}+"|"+${appointmentDate}+"|"+${appointmentTime}+"|"+${appointmentDescription}`
+       //const message=`${clientName}+"|"+${dentistName}+"|"+${appointmentDate}+"|"+${appointmentTime}+"|"+${appointmentDescription}`
+       const message=`${clientName}+"|"+${dentistName}+"|"+${pickerDefaultValue}`
         console.log(message)
        
         const responseDentist=await axios(`http://localhost:8080/dentist/name/${dentistName}`,{
@@ -73,7 +77,9 @@ const CreateNewAppointment = () => {
         const dentistId=responseDentist.data[0].dentistId
         const clientId=responseClient.data[0].clientId
 
-        const appoinmentScheduled=appointmentDate+"T"+appointmentTime+":00.000+04"
+        //const appoinmentScheduled=appointmentDate+"T"+appointmentTime+":00.000+04"
+        const appoinmentScheduled=appointmentDateAndTime+":00.000+04:00"
+        
         //2013-07-10T11:00:00.000+00:00
         // obrati paznju na timezone offset
         window.alert(appoinmentScheduled)
@@ -121,6 +127,38 @@ const CreateNewAppointment = () => {
        
 
     }
+    useEffect(() => {
+        //const singleBook = books.filter((item) => item?._id == id);
+        //console.log(singleBook);
+        console.log("use effect...")
+       
+        
+       
+
+            console.log("hjahaha")
+            const currDate=new Date()
+            let yyyy=currDate.getFullYear().toString()
+            let MM=(currDate.getMonth()+1).toString()
+            if (MM.length==1){MM="0"+MM}
+            let dd=currDate.getDate().toString()
+            if(dd.length==1){dd="0"+dd}
+            let hh=currDate.getHours().toString()
+            if(hh.length==1){
+                hh="0"+hh
+            }
+            let mm=currDate.getMinutes().toString()
+            if(mm.length==1){mm="0"+mm}
+            let currentDate=yyyy+"-"+MM+"-"+dd+"T"+hh+":"+mm
+            console.log("current date and time"+currentDate)
+            
+            document.getElementById("datetime-local-2").value=currentDate
+           
+
+       
+               
+        
+        
+      }, []);
 
     return ( 
         <>
@@ -131,6 +169,10 @@ const CreateNewAppointment = () => {
                 setAppointmentDate(e.target.value)
             }}/>
             <input type="time" onChange={e=>{setAppointmentTime(e.target.value)}}/>
+            <input type="datetime-local" id="datetime-local-2" value={pickerDefaultValue} onChange={e=>{
+                console.log(e.target.value)
+                setAppointmentDateAndTime(e.target.value)
+            }}/>
             <input type="text" placeholder="Dentist: " id="dentistFullName" onChange={e=>{setDentistName(e.target.value)}}/>
             <input type="text" placeholder="Client Full Name:" id="clientFullName" onChange={e=>{setClientName(e.target.value)}}/>
             <textarea placeholder="description:" id="appointmentDescription" onChange={e=>{setAppointmentDescription(e.target.value)}}/>

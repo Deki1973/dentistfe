@@ -24,10 +24,13 @@ const UpdateAppointment =() => {
     const[price,setPrice]=useState(0)
     const[completed,setCompleted]=useState(null)
 
-    const [appointmentDate,setAppointmentDate]=useState(null)
-    const [appointmentTime,setAppointmentTime]=useState(null)
+    const[updateDateAndTime,setUpdateDateAndTime]=useState(null)
+
+
+    let pickerDefaultValue
     
     const getAppointmentById=async (e)=>{
+        
         console.log("get appointment by id..."+id)
         const response=await axios(`http://localhost:8080/appointment/${id}`,
             {
@@ -42,6 +45,7 @@ const UpdateAppointment =() => {
         )
         const data=await response.data
         //setAppointmentData(data) nece da radi, ne znam zasto
+        console.log(data)
         setAppointmentId(data.appointmentId)
         setClientName(data.client.fullName)
         setClientId(data.client.clientId)
@@ -53,6 +57,8 @@ const UpdateAppointment =() => {
         if(data.completed===null){
             setCompleted(false)
         }else{setCompleted(data.completed)}
+        pickerDefaultValue=data.appointmentDateAndTime.substring(0,16)
+        console.log(pickerDefaultValue)
         
         
       
@@ -92,7 +98,8 @@ const UpdateAppointment =() => {
             const updatedAppointment={
                 "appointmentId":id,
                 "description":description,
-                "appointmentDateAndTime":appointmentDateAndTime,
+                //"appointmentDateAndTime":appointmentDateAndTime,
+                appointmentDateAndTime:updateDateAndTime,
                 "clientId":clientId,
                 "dentistId":dentistId,
                 "completed":completed,
@@ -136,6 +143,19 @@ const UpdateAppointment =() => {
        
         getAppointmentById()
        
+
+            console.log("hjahaha")
+            const currDate=new Date()
+            let yyyy=currDate.getFullYear().toString()
+            let MM=(currDate.getMonth()+1).toString()
+            if (MM.length==1){MM="0"+MM}
+            let dd=currDate.getDate().toString()
+            let hh=currDate.getHours().toString()
+            let mm=currDate.getMinutes().toString()
+            let currentDate=yyyy+"-"+MM+"-"+dd+"T"+hh+":"+mm
+            console.log("current date and time"+currentDate)
+            document.getElementById("datetime-local-1").value=currentDate
+
        
                
         
@@ -156,10 +176,28 @@ const UpdateAppointment =() => {
        
     </ul>
     <form action="submit" onSubmit={handleSubmit}>
-    <input type="date" onChange={e=>{
-                setAppointmentDate(e.target.value)
-            }}/>
-            <input type="time" onChange={e=>{setAppointmentTime(e.target.value)}}/>
+    
+            <input type="datetime-local" id="datetime-local-1" 
+            //value="2018-06-12T19:30"
+            value={pickerDefaultValue}
+            onChange={e=>{
+                
+                console.log(e.target.value+":00.000+04:00")
+                const newDateAndTime=e.target.value+":00.000+04:00"
+                setUpdateDateAndTime(newDateAndTime)
+                setAppointmentDateAndTime(newDateAndTime)
+
+                }}
+
+                onDoubleClick={
+                    console.log("double click")
+
+                    
+                    
+                }
+                
+                
+                />
             <input type="text" value={appointmentDateAndTime} onChange={e=>{setAppointmentDateAndTime(e.target.value)}}/>
            <input type="text" id="description" value={description} onChange={e=>{setDescription(e.target.value)}}/>
             <input type="text" id="price" value={price} onChange={e=>{setPrice(e.target.value)}}/>

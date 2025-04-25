@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"
 
 const AppointmentDetail = (prop) => {
     const item=prop.item
-    console.log(item.completed)
+    
     const navigate=useNavigate()
 
 
@@ -32,10 +32,10 @@ const AppointmentDetail = (prop) => {
     <h3>Appointment detail</h3>
     <ul>
         <li>ID: {item.appointmentId}</li>
-        <li>Client: {item.client.fullName}</li>
+        <li>Client name: {item.client.fullName}</li>
         <li>Description: {item.description}</li>
         <li>Dentist:{item.dentist.fullName}</li>
-        <li>Scheduled: {item.appointmentDateAndTime.substring(0,10)} {item.appointmentDateAndTime.substring(12,19)}</li>
+        <li>Scheduled: {item.appointmentDateAndTime}</li>
         <li>Completed: {item.completed ? "Yes":"No"}</li>
         <li>Price: {item.price ? item.price:"0"}</li>
     </ul>
