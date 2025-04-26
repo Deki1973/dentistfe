@@ -22,6 +22,8 @@ const Appointment = () => {
     const [clientParam,setClientParam]=useState(null)
     const [dentistParam,setDentistParam]=useState(null)
 
+    const [done,setDone]=useState(null)
+
     let clientId2=null
     let dentistId2=null
 
@@ -65,6 +67,8 @@ const Appointment = () => {
         const appointmetnScheduled=document.getElementById("appointmentDateAndTime").value
         const clientAttribute=document.getElementById("selectClient").value
         const dentistAttribute=document.getElementById("selectDentist").value
+
+        
 
         
 
@@ -216,6 +220,12 @@ const Appointment = () => {
         <button onClick={handleCreateNewAppointment}>Create New Appointment</button>
 
         <form action="submit" onSubmit={handleSubmit}>
+            <fieldset id="fsDone">
+            <input type="radio" value="null" name="fsDone" id="radioAll" defaultChecked="checked" onClick={e=>{setDone(null)}}/><label>All</label>
+            <input type="radio" value="false" name="fsDone" id="radioNotDone" onClick={e=>{setDone(false)}}/><label>Not completed</label>
+            <input type="radio" value="true" name="fsDone" id="radioDone" onClick={e=>{setDone(true)}}/><label>Completed</label>
+            
+            </fieldset>
             <input type="text" placeholder="appointmentDateAndTime" id="appointmentDateAndTime"/>
             <input type="text" placeholder="Client Full Name: " id="inputClientName"/>
             <input type="text" placeholder="Dentist Full Name" id="inputDentistName"/>
@@ -245,7 +255,9 @@ const Appointment = () => {
             <button type="submit" id="btnGetByDentist">Get Appointment By Dentist</button>
             <button type="submit" id="btnGetExact">Get Exact Appointment</button>
         </form>
-        <AppointmentList appointments={appointments}/>
+            {done!=null && <AppointmentList appointments={appointments} done={done}/>}
+            {done==null && <AppointmentList appointments={appointments} done={done}/>}
+
        
        
         </>
