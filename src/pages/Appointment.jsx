@@ -29,6 +29,26 @@ const Appointment = () => {
 
     const navigate=useNavigate()
 
+    const handleTest=async (e)=>{
+        e.preventDefault()
+        console.log("test get exact")
+        const response=await fetch(`http://localhost:8080/appointment/getExact`,{
+            method:"POST",
+            mode:"cors",
+            body:JSON.stringify({
+                clientId:1,
+                dentistId:1,
+                appointmentDateAndTime:"2025-04-26 11:12:00"
+            }),
+            headers:{
+                'Authorization': `Bearer ${jwt2}`,
+                'Content-Type': 'application/json',
+            }
+        })
+        const data=await response.json()
+        console.log(data)
+    }
+
     const handleGetAll=async (e)=>{
         window.alert("Get all")
 
@@ -159,6 +179,26 @@ const Appointment = () => {
 
         }
 
+        if (submitter==="btnGetExact"){
+         
+        const appointment={
+            "clientId":clientValue,
+            "dentistId":dentistValue,
+            "appointmentDateAndTime":appointmetnScheduled
+        }
+         console.log("btnGetExact...")
+         console.log(clientValue+"|"+dentistValue+"|"+appointmetnScheduled)
+         const url1=`http://localhost:8080/appointment/getExact`
+         const response=await axios(url1,{
+            method:"POST",
+            mode:"cors",
+            data:appointment,
+            headers:{
+                'Authorization': `Bearer ${jwt2}`,
+                'Content-Type': 'application/json',
+            }
+         }).then((response)=>{console.log(response.data)}).catch((error)=>{console.log(error.message)})
+        }
 
      }
 
@@ -218,7 +258,7 @@ const Appointment = () => {
         <h1>Appointment page</h1>
         <button onClick={handleGetAll}>Get All</button>
         <button onClick={handleCreateNewAppointment}>Create New Appointment</button>
-
+        <button onClick={handleTest}>Get Exact test</button>
         <form action="submit" onSubmit={handleSubmit}>
             <fieldset id="fsDone">
             <input type="radio" value="null" name="fsDone" id="radioAll" defaultChecked="checked" onClick={e=>{setDone(null)}}/><label>All</label>
