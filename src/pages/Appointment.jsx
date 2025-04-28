@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useJwt } from "../contexts/JwtContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -26,6 +26,8 @@ const Appointment = () => {
     const [dentistParam,setDentistParam]=useState(null)
 
     const [done,setDone]=useState(null)
+
+    const [appointmentStateScheduled,setAppointmentStateScheduled]=useState("")
 
     let clientId2=null
     let dentistId2=null
@@ -88,6 +90,7 @@ const Appointment = () => {
         const clientValue=clientParam
         const dentistValue=dentistParam
         const appointmetnScheduled=document.getElementById("appointmentDateAndTime").value
+        
         const clientAttribute=document.getElementById("selectClient").value
         const dentistAttribute=document.getElementById("selectDentist").value
 
@@ -200,7 +203,7 @@ const Appointment = () => {
         console.log(appointDate2)
         console.log(newHours)
         const correctedAppointmentScheduled=appointDate1+newHours+appointDate2
-        
+        console.log("corrected appointment schedule.. "+ correctedAppointmentScheduled)
     
         console.log("hours:"+hours)
         const appointment={
@@ -209,7 +212,7 @@ const Appointment = () => {
             "appointmentDateAndTime":correctedAppointmentScheduled
         }
          console.log("btnGetExact...")
-         console.log(clientValue+"|"+dentistValue+"|"+appointmetnScheduled)
+         console.log(clientValue+"|"+dentistValue+"|"+correctedAppointmentScheduled)
          const url1=`http://localhost:8080/appointment/getExact`
          const response=await axios(url1,{
             method:"POST",
@@ -226,6 +229,11 @@ const Appointment = () => {
         }).catch((error)=>{console.log(error.message)})
         }
 
+     }
+
+     const handleDateTimeLocalChange=(e)=>{
+        console.log(e.target.value)
+        
      }
 
      const getAppointmentByClientId=async (e,clientId2)=>{
@@ -278,7 +286,35 @@ const Appointment = () => {
 
     }
      
-    
+    useEffect(()=>{
+        console.log("use effect...")
+
+            const currDate=new Date()
+            
+            let yyyy=currDate.getFullYear().toString()
+            let MM=(currDate.getMonth()+1).toString()
+            if (MM.length==1){MM="0"+MM}
+            let dd=currDate.getDate().toString()
+            let hh=(currDate.getHours()).toString()
+            if(hh.length==1){
+                hh="0"+hh
+            }
+            let mm=currDate.getMinutes().toString()
+            if(mm.length==1){mm="0"+mm}
+            let currentDate3=yyyy+"-"+MM+"-"+dd+" "+hh+":"+mm
+            console.log("currentDate3: "+currentDate3)
+            //let currentDate2=new Date(yyyy,MM,dd,hh,mm)
+            //currentDate2.setTime(currentDate2.getTime()+(4*60*60*1000))
+            
+            console.log("current date and time: "+currentDate3.toString())
+            //const currentDate3="2025-04-28 22:00"
+
+            document.getElementById("datetime-local-3").value=currentDate3
+            setAppointmentStateScheduled(currentDate3)
+            
+            
+
+    },[])
     return ( 
         <>
         <h1>Appointment page</h1>
@@ -292,7 +328,7 @@ const Appointment = () => {
             <input type="radio" value="true" name="fsDone" id="radioDone" onClick={e=>{setDone(true)}}/><label>Completed</label>
             
             </fieldset>
-            <input type="datetime-local" id="datetime-local-3" />
+            <input type="datetime-local" id="datetime-local-3" onChange={handleDateTimeLocalChange}/>
             <input type="text" placeholder="appointmentDateAndTime" id="appointmentDateAndTime"/>
             <input type="text" placeholder="Client Full Name: " id="inputClientName"/>
             <input type="text" placeholder="Dentist Full Name" id="inputDentistName"/>

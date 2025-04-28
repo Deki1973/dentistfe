@@ -51,14 +51,37 @@ const UpdateAppointment =() => {
         setClientId(data.client.clientId)
         setDescription(data.description)
         setDentistName(data.dentist.fullName)
+
         setDentistId(data.dentist.dentistId)
-        setAppointmentDateAndTime(data.appointmentDateAndTime)
+        
+        //
+        // timezone correction
+        let hours=parseInt(data.appointmentDateAndTime.substring(11,13))
+        hours=hours+4   // timezone correction
+        let newHours=hours.toString()
+        if(hours<10){
+            newHours="0"+newHours
+        }
+        let appointDate1=data.appointmentDateAndTime.substring(0,11)
+        let appointDate2=data.appointmentDateAndTime.substring(13,19)
+        
+        console.log(appointDate1)
+        console.log(appointDate2)
+        console.log(newHours)
+        const correctedAppointmentScheduled=appointDate1+newHours+appointDate2
+        
+    
+        console.log("hours:"+hours)
+
+        setAppointmentDateAndTime(correctedAppointmentScheduled)
+        //
         setPrice(data.price)
         if(data.completed===null){
             setCompleted(false)
         }else{setCompleted(data.completed)}
-        pickerDefaultValue=data.appointmentDateAndTime.substring(0,16)
+        pickerDefaultValue=correctedAppointmentScheduled.substring(0,16)
         console.log(pickerDefaultValue)
+        
         
         
       
@@ -146,15 +169,26 @@ const UpdateAppointment =() => {
 
             console.log("hjahaha")
             const currDate=new Date()
+            
             let yyyy=currDate.getFullYear().toString()
             let MM=(currDate.getMonth()+1).toString()
             if (MM.length==1){MM="0"+MM}
             let dd=currDate.getDate().toString()
-            let hh=currDate.getHours().toString()
+            let hh=(currDate.getHours()).toString()
+            if(hh.length==1){
+                hh="0"+hh
+            }
             let mm=currDate.getMinutes().toString()
-            let currentDate=yyyy+"-"+MM+"-"+dd+"T"+hh+":"+mm
-            console.log("current date and time"+currentDate)
-            document.getElementById("datetime-local-1").value=currentDate
+            if(mm.length==1){mm="0"+mm}
+            let currentDate3=yyyy+"-"+MM+"-"+dd+" "+hh+":"+mm
+            console.log("currentDate3: "+currentDate3)
+            //let currentDate2=new Date(yyyy,MM,dd,hh,mm)
+            //currentDate2.setTime(currentDate2.getTime()+(4*60*60*1000))
+            
+            console.log("current date and time: "+currentDate3.toString())
+            //const currentDate3="2025-04-28 22:00"
+
+            document.getElementById("datetime-local-1").value=currentDate3
 
        
                
@@ -178,23 +212,20 @@ const UpdateAppointment =() => {
     <form action="submit" onSubmit={handleSubmit}>
     
             <input type="datetime-local" id="datetime-local-1" 
-            //value="2018-06-12T19:30"
-            value={pickerDefaultValue}
+            
+            //defaultValue="2018-06-12T19:30"
+            defaultValue={Date()}
             onChange={e=>{
                 
                 console.log(e.target.value+":00.000+04:00")
                 const newDateAndTime=e.target.value+":00.000+04:00"
                 setUpdateDateAndTime(newDateAndTime)
                 setAppointmentDateAndTime(newDateAndTime)
+    
 
                 }}
 
-                onDoubleClick={
-                    console.log("double click")
-
-                    
-                    
-                }
+                
                 
                 
                 />

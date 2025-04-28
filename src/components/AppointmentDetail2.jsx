@@ -8,12 +8,21 @@ const AppointmentDetail2 = (prop) => {
     const {jwt2}=useJwt();
 
     const appointment=prop.singleAppointment
+
+    const navigate=useNavigate()
     
-
+    
     const handleSubmit=async(e)=>{
+        e.preventDefault()
         console.log(e)
-    }
+        console.log(e.nativeEvent.submitter.id)
 
+        if(e.nativeEvent.submitter.id==="btnUpdate3"){
+            navigate(`/updateAppointment/${appointment.appointmentId}`)
+        }
+        
+       
+    }
 
 
     useEffect(() => {
@@ -38,7 +47,7 @@ const AppointmentDetail2 = (prop) => {
                 <li>{appointment.price}</li>
             </ul>
             <form action="submit" onSubmit={handleSubmit}>
-                <button type="submit" id="btnUpdate2">Edit</button>
+                <button type="submit" id="btnUpdate3">Edit</button>
             </form>
         </>
      );
