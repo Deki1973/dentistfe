@@ -142,7 +142,7 @@ const CreateNewAppointment = () => {
             if (MM.length==1){MM="0"+MM}
             let dd=currDate.getDate().toString()
             if(dd.length==1){dd="0"+dd}
-            let hh=currDate.getHours().toString()
+            let hh=(currDate.getHours()).toString()
             if(hh.length==1){
                 hh="0"+hh
             }
