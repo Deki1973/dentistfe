@@ -7,8 +7,7 @@ const CreateNewAppointment = () => {
 
     const {jwt2}=useJwt()
     
-    const [appointmentDate,setAppointmentDate]=useState(null)
-    const [appointmentTime,setAppointmentTime]=useState(null)
+  
     const [clientName,setClientName]=useState("")
     const [dentistName,setDentistName]=useState("")
     const [appointmentDescription,setAppointmentDescription]=useState("")
@@ -165,10 +164,8 @@ const CreateNewAppointment = () => {
 
 <h1>Create New Appointment Page</h1>
         <form action="submit" onSubmit={handleSubmit}>
-            <input type="date" onChange={e=>{
-                setAppointmentDate(e.target.value)
-            }}/>
-            <input type="time" onChange={e=>{setAppointmentTime(e.target.value)}}/>
+            
+            
             <input type="datetime-local" id="datetime-local-2" value={pickerDefaultValue} onChange={e=>{
                 console.log(e.target.value)
                 setAppointmentDateAndTime(e.target.value)

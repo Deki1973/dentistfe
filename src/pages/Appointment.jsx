@@ -55,7 +55,7 @@ const Appointment = () => {
     }
 
     const handleGetAll=async (e)=>{
-        window.alert("Get all")
+       
 
         const response=await axios({
             url:`http://localhost:8080/appointment/getall`,
@@ -232,7 +232,12 @@ const Appointment = () => {
      }
 
      const handleDateTimeLocalChange=(e)=>{
-        console.log(e.target.value)
+        
+        const pickerDateTime=e.target.value
+        console.log("pickerDateTime.."+pickerDateTime)
+        let dateTimeString=pickerDateTime.substring(0,10)+" "+pickerDateTime.substring(11,16)+":00"
+        console.log(dateTimeString)
+        document.getElementById("appointmentDateAndTime").value=dateTimeString
         
      }
 
@@ -330,8 +335,8 @@ const Appointment = () => {
             </fieldset>
             <input type="datetime-local" id="datetime-local-3" onChange={handleDateTimeLocalChange}/>
             <input type="text" placeholder="appointmentDateAndTime" id="appointmentDateAndTime"/>
-            <input type="text" placeholder="Client Full Name: " id="inputClientName"/>
-            <input type="text" placeholder="Dentist Full Name" id="inputDentistName"/>
+            
+            
             <select id="selectClient">
                 <option id="clientId" value="id">Client ID: </option>                
                 <option id="clientFullName" value="name">Client Full Name: </option>                
