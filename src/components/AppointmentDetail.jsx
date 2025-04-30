@@ -51,7 +51,7 @@ const AppointmentDetail = (prop) => {
         <li>Client name: {item.client.fullName}</li>
         <li>Description: {item.description}</li>
         <li>Dentist:{item.dentist.fullName}</li>
-        <li>Scheduled: {correctedAppointmentScheduled}</li>
+        <li>Scheduled: {correctedAppointmentScheduled.substring(0,10)+" "+correctedAppointmentScheduled.substring(11,16)}</li>
         <li>Completed: {item.completed ? "Yes":"No"}</li>
         <li>Price: {item.price ? item.price:"0"}</li>
     </ul>

@@ -48,6 +48,7 @@ const AppointmentDetail2 = (prop) => {
         setNote(client.note)
         */
        console.log(prop.singleAppointment)
+       console.log(prop.singleAppointment.price)
         
       });
     return ( 
