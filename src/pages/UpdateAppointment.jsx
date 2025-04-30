@@ -28,7 +28,10 @@ const UpdateAppointment =() => {
 
 
     let pickerDefaultValue
-    
+    let correctedAppointmentDateAndTime
+
+
+
     const getAppointmentById=async (e)=>{
         
         console.log("get appointment by id..."+id)
@@ -51,38 +54,38 @@ const UpdateAppointment =() => {
         setClientId(data.client.clientId)
         setDescription(data.description)
         setDentistName(data.dentist.fullName)
-
+        setCompleted(data.completed)
         setDentistId(data.dentist.dentistId)
         
+        //setAppointmentDateAndTime(data.appointmentDateAndTime)
         //
         // timezone correction
-        let hours=parseInt(data.appointmentDateAndTime.substring(11,13))
-        hours=hours+4   // timezone correction
-        let newHours=hours.toString()
-        if(hours<10){
-            newHours="0"+newHours
+        let appointmentDateAndTime1=data.appointmentDateAndTime
+        let partOne=appointmentDateAndTime1.substring(0,10)
+        let partTwo=appointmentDateAndTime1.substring(11,16)
+        console.log(partOne+" "+partTwo)
+        let intHours=parseInt(partTwo.substring(0,2))
+        intHours=intHours+4
+        let strHours=intHours.toString()
+        if(strHours.length===1){
+            strHours="0"+strHours
         }
-        let appointDate1=data.appointmentDateAndTime.substring(0,11)
-        let appointDate2=data.appointmentDateAndTime.substring(13,19)
+        let correctedTime=strHours+partTwo.substring(2,5)+":00"
+        console.log(correctedTime)
+        correctedAppointmentDateAndTime=partOne+"T"+correctedTime
+        setAppointmentDateAndTime(correctedAppointmentDateAndTime)
         
-        console.log(appointDate1)
-        console.log(appointDate2)
-        console.log(newHours)
-        const correctedAppointmentScheduled=appointDate1+newHours+appointDate2
-        
-    
-        console.log("hours:"+hours)
+       
+        // PROBLEM
+        // kada se izabere datum sa datetime pickera, vreme u bazi se promeni korektno
+        // medjutim, da se ostavi difoltno datum i vreme sastanka, vreme se u bazu unese
+        // inkrementirano za 4h
 
-        setAppointmentDateAndTime(correctedAppointmentScheduled)
-        //
-        setPrice(data.price)
-        if(data.completed===null){
-            setCompleted(false)
-        }else{setCompleted(data.completed)}
-        pickerDefaultValue=correctedAppointmentScheduled.substring(0,16)
-        console.log(pickerDefaultValue)
-        
-        
+        // PROBAJ
+        // uvedi promenljivu boolean koja je difoltno false
+        // kada se jednom promeni vrednost datetime pickera menja vrednost u true
+        // uvedi logiku koja prilikom saveovanja provarava vrednost date varijable
+        // ako je true neka od appointmentDateAndTime oduzme 4h
         
       
         
@@ -118,11 +121,12 @@ const UpdateAppointment =() => {
         }
         if(e.nativeEvent.submitter.id==="btnSave"){
             console.log("save...")
+            // prilikom saveovanja, moras iz appointmentDateAndTime smanjiti za 4h
             const updatedAppointment={
                 "appointmentId":id,
                 "description":description,
-                //"appointmentDateAndTime":appointmentDateAndTime,
-                appointmentDateAndTime:updateDateAndTime,
+                "appointmentDateAndTime":appointmentDateAndTime,
+                //appointmentDateAndTime:updateDateAndTime,
                 "clientId":clientId,
                 "dentistId":dentistId,
                 "completed":completed,
@@ -167,28 +171,7 @@ const UpdateAppointment =() => {
         getAppointmentById()
        
 
-            console.log("hjahaha")
-            const currDate=new Date()
             
-            let yyyy=currDate.getFullYear().toString()
-            let MM=(currDate.getMonth()+1).toString()
-            if (MM.length==1){MM="0"+MM}
-            let dd=currDate.getDate().toString()
-            let hh=(currDate.getHours()).toString()
-            if(hh.length==1){
-                hh="0"+hh
-            }
-            let mm=currDate.getMinutes().toString()
-            if(mm.length==1){mm="0"+mm}
-            let currentDate3=yyyy+"-"+MM+"-"+dd+" "+hh+":"+mm
-            console.log("currentDate3: "+currentDate3)
-            //let currentDate2=new Date(yyyy,MM,dd,hh,mm)
-            //currentDate2.setTime(currentDate2.getTime()+(4*60*60*1000))
-            
-            console.log("current date and time: "+currentDate3.toString())
-            //const currentDate3="2025-04-28 22:00"
-
-            document.getElementById("datetime-local-1").value=currentDate3
 
        
                
@@ -214,7 +197,7 @@ const UpdateAppointment =() => {
             <input type="datetime-local" id="datetime-local-1" 
             
             //defaultValue="2018-06-12T19:30"
-            defaultValue={Date()}
+            defaultValue={appointmentDateAndTime}
             onChange={e=>{
                 
                 console.log(e.target.value+":00.000+04:00")
