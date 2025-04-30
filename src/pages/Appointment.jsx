@@ -145,7 +145,7 @@ const Appointment = () => {
         }
 
         if(submitter==="btnGetByDentist"){
-            console.log("Get dentist by"+dentistAttribute+"|"+dentistValue)
+             console.log("Get dentist by"+dentistAttribute+"|"+dentistValue)
               const url1=`http://localhost:8080/dentist/${dentistAttribute}/${dentistValue}`
               console.log(url1)
               const response=await axios(url1,{
@@ -187,32 +187,105 @@ const Appointment = () => {
 
         if (submitter==="btnGetExact"){
          // pribavi ID clienta iz baze
+
+         const urlClient=`http://localhost:8080/client/${clientAttribute}/${clientValue}`
+         console.log(urlClient)
+        
+        
+         const responseClient=await axios(urlClient,{
+             method:"GET",
+             mode:"cors",
+             headers:{
+                 'Authorization': `Bearer ${jwt2}`,
+                 'Content-Type': 'application/json',
+             }
+         }).then((responseClient)=>{
+            console.log(responseClient)
+            const dataClient=responseClient.data
+            console.log(dataClient)
+            if(clientAttribute!="name"){
+                console.log(responseClient.data.clientId)
+                console.log(responseClient.data.fullName)
+                console.log(responseClient.data.contact)
+                setClientId(responseClient.data.clientId) // problem: kada sam koristi useState, morao sam dvaput kliknuti da bi se lista pravilno osvezila
+                clientId2=responseClient.data.clientId    // resio upotrebom klasicne promenljive koju sam predao kao parametar narednoj funkciji
+                }
+                if(clientAttribute==="name"){
+                console.log(responseClient.data[0].clientId)
+                console.log(responseClient.data[0].fullName)
+                console.log(responseClient.data[0].contact)
+                setClientId(responseClient.data[0].clientId)
+                clientId2=responseClient.data[0].clientId
+
+                }
+                console.log("Pronadje id clienta po atributu "+clientAttribute+" i on je "+clientId2)
+
+         }).catch((error)=>{console.log(error.message)})
+
          // pribavi ID dentista iz baze
+
+         const urlDentist=`http://localhost:8080/dentist/${dentistAttribute}/${dentistValue}`
+         console.log(urlDentist)
+         const responseDentist=await axios(urlDentist,{
+
+           method:"GET",
+           mode:"cors",
+           headers:{
+               'Authorization': `Bearer ${jwt2}`,
+               'Content-Type': 'application/json',
+           }
+         }).then((responseDentist)=>{
+           console.log(responseDentist)
+           if(responseDentist.data.length>1){
+               window.alert("Multiple response. Please, be more specific.")
+               return
+           }
+           if(dentistAttribute!="name"){
+               console.log(responseDentist.data.dentistId)
+               console.log(responseDentist.data.fullName)
+               console.log(responseDentist.data.contact)
+               setDentistId(responseDentist.data.dentistId) // problem: kada sam koristi useState, morao sam dvaput kliknuti da bi se lista pravilno osvezila
+               dentistId2=responseDentist.data.dentistId    // resio upotrebom klasicne promenljive koju sam predao kao parametar narednoj funkciji
+               }
+               if(dentistAttribute==="name"){
+               console.log(responseDentist.data[0].dentistId)
+               console.log(responseDentist.data[0].fullName)
+               console.log(responseDentist.data[0].contact)
+               setDentistId(responseDentist.data[0].dentistId)
+               dentistId2=responseDentist.data[0].dentistId
+
+               }
+               console.log("Pronadjen id dentista po atributu"+dentistAttribute+"i on je "+dentistId2)
+               
+
+         }).catch((error)=>{console.log(error.message)})
+
+
+
+
          // pribavi DateAndTime iz text polja ili datetime-local pickera
          // prepravi vreme za 4 sata zbog vremnske zone
-        let hours=parseInt(appointmetnScheduled.substring(11,13))
-        hours=hours-4
-        let newHours=hours.toString()
-        if(hours<10){
-            newHours="0"+newHours
+        let intHours=parseInt(appointmetnScheduled.substring(11,13))
+        intHours=intHours-4
+        let strHours=intHours.toString()
+        if(strHours.length===1){
+            strHours="0"+strHours
         }
         let appointDate1=appointmetnScheduled.substring(0,11)
         let appointDate2=appointmetnScheduled.substring(13,19)
         
-        console.log(appointDate1)
-        console.log(appointDate2)
-        console.log(newHours)
-        const correctedAppointmentScheduled=appointDate1+newHours+appointDate2
+        const correctedAppointmentScheduled=appointDate1+strHours+appointDate2
         console.log("corrected appointment schedule.. "+ correctedAppointmentScheduled)
-    
-        console.log("hours:"+hours)
+        
+
+        
         const appointment={
-            "clientId":clientValue,
-            "dentistId":dentistValue,
+            "clientId":clientId2,
+            "dentistId":dentistId2,
             "appointmentDateAndTime":correctedAppointmentScheduled
         }
          console.log("btnGetExact...")
-         console.log(clientValue+"|"+dentistValue+"|"+correctedAppointmentScheduled)
+         console.log(clientId2+"|"+dentistId2+"|"+correctedAppointmentScheduled)
          const url1=`http://localhost:8080/appointment/getExact`
          const response=await axios(url1,{
             method:"POST",
