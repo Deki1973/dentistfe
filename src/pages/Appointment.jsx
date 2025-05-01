@@ -34,47 +34,6 @@ const Appointment = () => {
 
     const navigate=useNavigate()
 
-    const handleTest=async (e)=>{
-        e.preventDefault()
-        console.log("test get exact")
-        const response=await fetch(`http://localhost:8080/appointment/getExact`,{
-            method:"POST",
-            mode:"cors",
-            body:JSON.stringify({
-                clientId:1,
-                dentistId:1,
-                appointmentDateAndTime:"2025-04-26 11:12:00"
-            }),
-            headers:{
-                'Authorization': `Bearer ${jwt2}`,
-                'Content-Type': 'application/json',
-            }
-        })
-        const data=await response.json()
-        console.log(data)
-    }
-
-    const handleGetAll=async (e)=>{
-       
-
-        const response=await axios({
-            url:`http://localhost:8080/appointment/getall`,
-            method:"GET",
-            mode:"cors",
-            headers:{
-                'Authorization': `Bearer ${jwt2}`,
-                'Content-Type': 'application/json',
-            }
-        }).then((response)=>{
-            const responseData=response.data
-            console.log(responseData)
-            setAppointments(responseData)
-            
-        }).catch((error)=>{
-            console.log(error.message)
-        })
-
-    }
    
     const handleCreateNewAppointment=()=>{
         navigate("/createNewAppointment")
@@ -85,8 +44,6 @@ const Appointment = () => {
 
         console.log(e.nativeEvent.submitter.id)
         const submitter=e.nativeEvent.submitter.id
-        //const clientValue=document.getElementById("inputClientParam").value
-        //const dentistValue=document.getElementById("inputDentistParam").value
         const clientValue=clientParam
         const dentistValue=dentistParam
         const appointmetnScheduled=document.getElementById("appointmentDateAndTime").value
@@ -102,6 +59,36 @@ const Appointment = () => {
       
 
         console.log(clientValue+"|"+clientValue+"|"+appointmetnScheduled)
+
+        if(submitter==="btnGetAll"){
+
+            const response=await axios({
+                url:`http://localhost:8080/appointment/getall`,
+                method:"GET",
+                mode:"cors",
+                headers:{
+                    'Authorization': `Bearer ${jwt2}`,
+                    'Content-Type': 'application/json',
+                }
+            }).then((response)=>{
+                const responseData=response.data
+                console.log(responseData)
+                setAppointments(responseData)
+                setSingleAppointment(null)
+                
+            }).catch((error)=>{
+                console.log(error.message)
+                console.log(error.data)
+                console.log(error.status)
+                console.log(error.headers)
+                
+                if(error.status===403){
+                    window.alert('You are not logged in or your session has expired.\nTry to login. If this message persists, contact your administrator.')
+                }
+            })
+
+
+        }
 
         if (submitter==="btnGetByClient"){
             console.log("Get client by"+clientAttribute+"|"+clientValue)
@@ -299,6 +286,7 @@ const Appointment = () => {
             console.log(response2.data)
             const response2data=response2.data
             setSingleAppointment(response2data)
+            setAppointments(null)
         }).catch((error)=>{console.log(error.message)})
         }
 
@@ -336,6 +324,7 @@ const Appointment = () => {
             console.log("izlistaj zakazane appointmente")
             console.log(response2data)
             setAppointments(response2data)
+            setSingleAppointment(null)
             
         }).catch((error)=>{console.log(error.message)})
      }
@@ -358,6 +347,7 @@ const Appointment = () => {
             const response2data=response2.data
             console.log(response2data)
             setAppointments(response2data)
+            setSingleAppointment(null)
         }
         ).catch((error)=>{console.log(error)})
        
@@ -396,16 +386,18 @@ const Appointment = () => {
     return ( 
         <>
         <h1>Appointment page</h1>
-        <button onClick={handleGetAll}>Get All</button>
         <button onClick={handleCreateNewAppointment}>Create New Appointment</button>
-        <button onClick={handleTest}>Get Exact test</button>
         <form action="submit" onSubmit={handleSubmit}>
-            <fieldset id="fsDone">
+            {singleAppointment===null && 
+            <div>
+                <fieldset id="fsDone">
             <input type="radio" value="null" name="fsDone" id="radioAll" defaultChecked="checked" onClick={e=>{setDone(null)}}/><label>All</label>
             <input type="radio" value="false" name="fsDone" id="radioNotDone" onClick={e=>{setDone(false)}}/><label>Not completed</label>
             <input type="radio" value="true" name="fsDone" id="radioDone" onClick={e=>{setDone(true)}}/><label>Completed</label>
-            
             </fieldset>
+
+            </div>}
+            
             <input type="datetime-local" id="datetime-local-3" onChange={handleDateTimeLocalChange}/>
             <input type="text" placeholder="appointmentDateAndTime" id="appointmentDateAndTime"/>
             
@@ -422,16 +414,20 @@ const Appointment = () => {
 
             }}/>
 
+           
+            
             <select id="selectDentist">
-            <option id="dentistId" value="id">Dentst ID: </option>                
+                <option id="dentistId" value="id">Dentst ID: </option>                
                 <option id="dentistFullName" value="name">Dentist Full Name: </option>                
                 <option id="dentistContact" value="contact">Contact: </option>                
             </select>
+
             <input type="text" id="inputDentistParam" placeholder="Dentist: " onChange={e=>{
                 setDentistParam(e.target.value)
                 console.log(dentistParam)
             }
                 }/>
+            <button type="submit" id="btnGetAll">Get all</button>
             <button type="submit" id="btnGetByClient">Get Appointment By Client</button>
             <button type="submit" id="btnGetByDentist">Get Appointment By Dentist</button>
             <button type="submit" id="btnGetExact">Get Exact Appointment</button>

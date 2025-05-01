@@ -25,7 +25,7 @@ const NavBar = () => {
             <button onClick={changeJwt}>GetJwt</button>
             <br/>
             <p>{jwt1}</p>
-            <p>{jwt2}</p>
+            <p>{jwt2==null ? "You are not logged in":"Logged in"}</p>
             
            
 
