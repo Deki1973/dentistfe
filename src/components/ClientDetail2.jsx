@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useJwt } from "../contexts/JwtContext";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import "../styles/clientStyle.scss"
 
 const ClientDetail2 = (prop) => {
      const {jwt2}=useJwt();
@@ -38,7 +39,7 @@ const ClientDetail2 = (prop) => {
         
       });
     
-    return (<> 
+    return (<div className="clientStyle"> 
     <p>ClientDetail2</p>
         <ul>
             <li>Client ID: {client.clientId}</li>
@@ -52,7 +53,7 @@ const ClientDetail2 = (prop) => {
 
         </ul>
 
-    </> );
+    </div> );
 }
  
 export default ClientDetail2;

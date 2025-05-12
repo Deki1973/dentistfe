@@ -1,6 +1,8 @@
+import './styles/ClientStyle.scss'
+
 const ClientDetail = (prop) => {
     const client=prop.item
-    return (<> 
+    return (<div className='clientDetail'> 
     <p>Client Detail 1</p>
         <ul>
             <li>Client ID: {client.clientId}</li>
@@ -10,7 +12,7 @@ const ClientDetail = (prop) => {
 
         </ul>
 
-    </> );
+    </div> );
 }
  
 export default ClientDetail;

@@ -3,6 +3,7 @@ import { useJwt } from "../contexts/JwtContext";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
+
 const DentistDetail = (prop) => {
 
 
