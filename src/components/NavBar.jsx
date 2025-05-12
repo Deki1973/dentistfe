@@ -19,12 +19,12 @@ const NavBar = () => {
             <Link to="/client">Client</Link>
             <Link to="/dentist">Denitst</Link>
             <Link to="/appointment">Appointment</Link>
-            <input type="text" placeholder="Username: " id="username" value="foo1"/>
-            <input type="password" placeholder="Password: " id="password" value="foofoo1"/>
+            <input type="text" placeholder="Username: " id="username" defaultValue="foo1"/>
+            <input type="password" placeholder="Password: " id="password" defaultValue="foofoo1"/>
             <button onClick={changeTheme}>Change Theme</button>
             <button onClick={changeJwt}>GetJwt</button>
             <br/>
-            <p>{jwt1}</p>
+            <p>{jwt2}</p>
             <p>{jwt2==null ? "You are not logged in":"Logged in"}</p>
             
            
