@@ -22,7 +22,7 @@ const ClientDetail2 = (prop) => {
         console.log(e)
         console.log(e.nativeEvent.submitter.id)
 
-        if(e.nativeEvent.submitter.id==="btnUpdate2"){
+        if(e.nativeEvent.submitter.id==="btnEdit"){
             navigate(`/updateClient/${client.clientId}`)
         }
      
@@ -40,18 +40,30 @@ const ClientDetail2 = (prop) => {
       });
     
     return (<div className="clientStyle"> 
-    <p>ClientDetail2</p>
-        <ul>
-            <li>Client ID: {client.clientId}</li>
-            <li>Full Name: {client.fullName}</li>
-            <li>Contact: {client.contact}</li>
+       
+            <table>
+                <tr>
+                    <td className="left">Client ID:</td><td className="right"> {client.clientId}</td>
+                </tr>
+                <tr>
+                    <td className="left">Full Name:</td><td className="right"> {client.fullName}</td>
+                    
+                </tr>
+                <tr>
+                    <td className="left">Contact:</td><td className="right"> {client.contact}</td>
+                </tr>
+                <tr>
+                    {client.note && <td colSpan="2">Note: {client.note}</td>}
+                </tr>
+            </table>
+           
             
             <form action="submit" onSubmit={handleSubmit}>       
-                <button type="submit" id="btnUpdate2">Edit</button>
+                <button type="submit" id="btnEdit">Edit</button>
             </form>
             
 
-        </ul>
+       
 
     </div> );
 }
