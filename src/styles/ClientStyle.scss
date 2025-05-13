@@ -41,6 +41,8 @@ td{
 .left{
   font-style: italic;
   font-weight: 300;
+  width: 10vw;
+  
 }
 .right{
   font-style: normal;
@@ -52,4 +54,16 @@ button{
   height: 5vh;
   font-weight: 800;
   border-radius: 5px;
+}
+.select1{
+  font-size: medium;
+  padding: 5px;
+  height: 4vh;
+}
+.clientAttributeValue{
+  font-size: medium;
+  font-weight: 600;
+  padding: 5px;
+  width: 20vw;
+  height: 3vh;
 }
