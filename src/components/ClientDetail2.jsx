@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useJwt } from "../contexts/JwtContext";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "../styles/clientStyle.scss"
+import "../styles/ClientStyle.scss"
 
 const ClientDetail2 = (prop) => {
      const {jwt2}=useJwt();
@@ -53,7 +53,9 @@ const ClientDetail2 = (prop) => {
                     <td className="left">Contact:</td><td className="right"> {client.contact}</td>
                 </tr>
                 <tr>
-                    {client.note && <td colSpan="2">Note: {client.note}</td>}
+                    <td className="left">Note: </td>
+                    {client.note && <td className="right">{client.note}</td>}
+                
                 </tr>
             </table>
            

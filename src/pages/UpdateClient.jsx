@@ -130,19 +130,20 @@ const UpdateClient = () => {
 
                 <table>
                     <tbody>
-                        <tr><td>ID: </td><td>{id}</td></tr>
                         <tr>
-                            <td> <label>Full Name: </label></td><td> <input type="text" placeholder="Full Name: " value={fullName} onChange={e => {
+                            <td className="left">ID: </td><td className="right">{id}</td></tr>
+                        <tr>
+                            <td className="left">Full Name: </td><td className="right"> <input type="text" placeholder="Full Name: " value={fullName} onChange={e => {
                                 setFullName(e.target.value)
                             }} /></td>
                         </tr>
                         <tr>
-                            <td><label>Contact: </label></td><td> <input type="text" placeholder="Contact: " value={contact} onChange={e => {
+                            <td className="left">Contact: </td><td> <input type="text" placeholder="Contact: " value={contact} onChange={e => {
                                 setContact(e.target.value)
                             }} /></td>
                         </tr>
                         <tr>
-                            <td>  <label>Note: </label></td><td><textarea placeholder="Note: " value={note} onChange={e => {
+                            <td className="left">Note: </td><td><textarea placeholder="Note: " value={note} onChange={e => {
                                 setNote(e.target.value)
                             }}></textarea></td>
                         </tr>

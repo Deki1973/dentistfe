@@ -9,7 +9,7 @@ import { Navigate, useNavigate } from "react-router-dom"
 import axios from "axios"
 import { urlHeroku } from "../script/urls"
 
-import "../styles/clientStyle.scss"
+import "../styles/ClientStyle.scss"
 
 const Client = () => {
     
