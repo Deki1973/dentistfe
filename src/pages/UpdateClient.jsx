@@ -84,7 +84,7 @@ const UpdateClient = () => {
 
         if (e.nativeEvent.submitter.id === "btnDelete") {
             window.alert("delete")
-            if(window.confirm("WARNING: This operation cannot be undone!\nAre you sure?")!=="OK"){
+            if(window.confirm("WARNING: This operation cannot be undone!\nAre you sure?")===false){
                 return
             }
 
@@ -101,8 +101,9 @@ const UpdateClient = () => {
                 }
             )
             console.log(response)
-            const data = await response.json()
-            console.log(data)
+            //const data = await response.json()
+            //console.log(data)
+            window.alert(`Client ID ${id} deleted.`)
 
 
 
