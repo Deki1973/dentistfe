@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useJwt } from "../contexts/JwtContext";
 import { useNavigate } from "react-router-dom";
+import "../styles/AddNewClient.scss"
 
 
 const AddNewClient = () => {
