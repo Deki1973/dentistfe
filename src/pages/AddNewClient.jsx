@@ -49,6 +49,9 @@ const AddNewClient = () => {
             console.log("handle cancel")
             navigate("/client")
         }
+        if(e.nativeEvent.submitter.id==="btnBack"){
+            navigate("/client")
+        }
 
 
     }
@@ -92,6 +95,7 @@ const AddNewClient = () => {
 
 
                 <button type="submit" id="btnSave">Save</button>
+                <button type="submit" id="btnBack">Back</button>
                 <button type="submit" id="btnCancel">Cancel</button>
 
             </form>

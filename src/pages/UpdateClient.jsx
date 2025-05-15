@@ -84,6 +84,9 @@ const UpdateClient = () => {
 
         if (e.nativeEvent.submitter.id === "btnDelete") {
             window.alert("delete")
+            if(window.confirm("WARNING: This operation cannot be undone!\nAre you sure?")!=="OK"){
+                return
+            }
 
             console.log(id)
 
