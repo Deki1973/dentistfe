@@ -425,10 +425,10 @@ const Appointment = () => {
                     console.log(dentistParam)
                 }
                 } />
-                <button type="submit" id="btnGetAll">Get all</button>
-                <button type="submit" id="btnGetByClient">Get Appointment By Client</button>
-                <button type="submit" id="btnGetByDentist">Get Appointment By Dentist</button>
-                <button type="submit" id="btnGetExact">Get Exact Appointment</button>
+                <button type="submit" id="btnGetAll">Get All</button>
+                <button type="submit" id="btnGetByClient">Get By Client</button>
+                <button type="submit" id="btnGetByDentist">Get By Dentist</button>
+                <button type="submit" id="btnGetExact">Get Exact</button>
             </form>
             {done != null && <AppointmentList appointments={appointments} done={done} />}
             {done == null && <AppointmentList appointments={appointments} done={done} />}

@@ -3,6 +3,8 @@ import { useJwt } from "../contexts/JwtContext";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
+import "../styles/DentistStyle.scss"
+
 
 const DentistDetail = (prop) => {
 
@@ -17,29 +19,40 @@ const DentistDetail = (prop) => {
         console.log(e)
         console.log(e.nativeEvent.submitter.id)
 
-        if(e.nativeEvent.submitter.id==="btnUpdate2"){
+        if(e.nativeEvent.submitter.id==="btnUpdateDentist"){
             console.log("navigate to update dentist...")
             navigate(`/updateDentist/${dentist.dentistId}`)
         }
 
     }
     return ( 
-        <>
-         <ul>
-            <li>Client ID: {dentist.dentistId}</li>
-            <li>Full Name: {dentist.fullName}</li>
-            <li>Contact: {dentist.contact}</li>
+        <div className="dentistStyle">
+        
+            <table>
+                
+                    <tr>
+                        <td className="left">Dentist ID:</td><td className="right">{dentist.dentistId}</td>
+                    </tr>
+                    <tr>
+                        <td className="left">Full Name: </td><td className="right">{dentist.fullName}</td>
+                    </tr>
+                    <tr>
+                        <td className="left">Contact: </td><td className="right">{dentist.contact}</td>
+                    </tr>
+                    
+                
+            </table>
             <form action="submit" onSubmit={handleSubmit}>
 
-            <button type="submit" id="btnUpdate2">Edit</button>
+            <button type="submit" id="btnUpdateDentist">Edit</button>
         
             
             
 
             </form>
 
-        </ul>
-        </>
+        
+        </div>
      );
 }
  

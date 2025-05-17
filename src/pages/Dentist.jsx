@@ -6,66 +6,67 @@ import { useJwt } from "../contexts/JwtContext"
 
 import { Navigate, useNavigate } from "react-router-dom"
 
+import "../styles/DentistPage.scss"
+
 
 const Dentist = () => {
 
-    const {jwt2}=useJwt();
-    const [dentists, setDentists]=useState(null)
-    const [item,setItem]=useState(null)
-    const [dentistListVisible, setDentistListVisible]=useState(false)
-    const [dentistDetailsVisible, setDentistDetailsVisible]=useState(false)
+    const { jwt2 } = useJwt();
+    const [dentists, setDentists] = useState(null)
+    const [item, setItem] = useState(null)
+    const [dentistListVisible, setDentistListVisible] = useState(false)
+    const [dentistDetailsVisible, setDentistDetailsVisible] = useState(false)
 
-    const navigate=useNavigate()
-
-
-    const handleGetAll= async()=>{
-        
-        
-        window.alert("handle click...")   
-        console.log(jwt2) 
-        
-  //      const jwt1="eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmb28xIiwicm9sZXMiOlsiQURNSU4iXSwiZXhwIjoxNzQyNDk1OTc3LCJpYXQiOjE3NDI0OTIzNzd9.QVxNzsrx0QcR0D-L8BG0dOHz5iEurKtidHDkm19hxBU"
+    const navigate = useNavigate()
 
 
-      
-        const response=await fetch(`http://localhost:8080/dentist/getall`,
+    const handleGetAll = async () => {
+
+
+        //window.alert("handle click...")
+        //console.log(jwt2)
+
+        //      const jwt1="eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmb28xIiwicm9sZXMiOlsiQURNSU4iXSwiZXhwIjoxNzQyNDk1OTc3LCJpYXQiOjE3NDI0OTIzNzd9.QVxNzsrx0QcR0D-L8BG0dOHz5iEurKtidHDkm19hxBU"
+
+
+
+        const response = await fetch(`http://localhost:8080/dentist/getall`,
             {
-                method:"GET",
-                mode:"cors",
-                headers:{
-                'Authorization': `Bearer ${jwt2}`,
-                'Content-Type': 'application/json',
+                method: "GET",
+                mode: "cors",
+                headers: {
+                    'Authorization': `Bearer ${jwt2}`,
+                    'Content-Type': 'application/json',
                 }
-                
-                
+
+
             }
         )
 
         console.log("Response is:\n")
         console.log(response)
-        const json1=await response.json()
+        const json1 = await response.json()
         console.log(json1)
-        
+
         setDentists(json1)
         setDentistListVisible(true)
         setDentistDetailsVisible(false)
-         
+
     }
 
-    const handleGetDentist=async ()=>{
+    const handleSubmit = async (e) => {
+        e.preventDefault()
 
+        const dentistAttribute = document.getElementById("select1").value
 
-        const dentistAttribute=document.getElementById("select1").value
+        const attributeValue = document.getElementById("dentistAttribute").value
 
-        const attributeValue=document.getElementById("dentistAttribute").value
-        
-
-        const response=await fetch(
+        const response = await fetch(
             `http://localhost:8080/dentist/${dentistAttribute}/${attributeValue}`,
             {
-                method:"GET",
-                mode:"cors",
-                headers:{
+                method: "GET",
+                mode: "cors",
+                headers: {
                     'Authorization': `Bearer ${jwt2}`,
                     'Content-Type': 'application/json',
                 }
@@ -74,55 +75,68 @@ const Dentist = () => {
 
         )
         console.log(response)
-        const data=await response.json()
+        const data = await response.json()
         console.log(data)
-      
-       console.log("Dentists found:")
-       console.log(dentists)
-       if (dentistAttribute==="contact" || dentistAttribute==="id"){
-        setItem(data)
-        setDentistListVisible(false)
-        setDentistDetailsVisible(true)
-       }
-       if(dentistAttribute==="name"){
-        setDentists(data)
-        setDentistListVisible(true)
-        setDentistDetailsVisible(false)
-       }
+
+        console.log("Dentists found:")
+        console.log(dentists)
+        if (dentistAttribute === "contact" || dentistAttribute === "id") {
+            setItem(data)
+            setDentistListVisible(false)
+            setDentistDetailsVisible(true)
+        }
+        if (dentistAttribute === "name") {
+            setDentists(data)
+            setDentistListVisible(true)
+            setDentistDetailsVisible(false)
+        }
+
+
+
 
     }
 
-    const handleAddNewDentist=()=>{
+
+
+    const handleAddNewDentist = () => {
         navigate("/addNewDentist")
-     }
-    return ( 
-        <>
-        <h1>Dentist page</h1>
-       
-        <button onClick={handleGetAll}>GetAll</button>
-        <br />
-        <select id="select1">
-            <option value="id">ID: </option>
-            <option value="name">Full Name: </option>
-            <option value="contact">Contact: </option>
-            
-        </select>
-        <input type="text" id="dentistAttribute" placeholder="value"/>
-        <button onClick={handleGetDentist}>Get dentist</button>
-        <button onClick={handleAddNewDentist}>Add new dentist</button>
+    }
+    return (
+        <div className="dentistPage">
+            <h1>Dentist</h1>
+            <button onClick={handleAddNewDentist}>Add New</button>
+            <button onClick={handleGetAll}>Get All</button>
 
-        <div>
-            {dentistDetailsVisible && item && <DentistDetail item={item}/> }  
-        </div>
-       
-        <div>
-            {dentistListVisible && <DentistList dentists={dentists}/>}
-        
+            <form action="submit" onSubmit={handleSubmit}>
+                <select id="select1" className="select1">
+                    <option value="id">ID: </option>
+                    <option value="name">Full Name: </option>
+                    <option value="contact">Contact: </option>
+
+                </select>
+                <input type="text" id="dentistAttribute" placeholder="value" className="dentistAttributeValue"/>
+
+
+                <button type="submit" id="btnGetDentist">Get Dentist</button>
+            </form>
+
+
+            <br />
+
+
+
+            <div>
+                {dentistDetailsVisible && item && <DentistDetail item={item} />}
+            </div>
+
+            <div>
+                {dentistListVisible && <DentistList dentists={dentists} />}
+
+
+            </div>
 
         </div>
-        
-        </>
-     );
+    );
 }
- 
+
 export default Dentist;

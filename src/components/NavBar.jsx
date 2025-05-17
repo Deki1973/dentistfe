@@ -21,8 +21,8 @@ const NavBar = () => {
             <Link to="/appointment">Appointment</Link>
             <input type="text" placeholder="Username: " id="username" defaultValue="foo1"/>
             <input type="password" placeholder="Password: " id="password" defaultValue="foofoo1"/>
-            <button onClick={changeTheme}>Change Theme</button>
-            <button onClick={changeJwt}>GetJwt</button>
+            <button onClick={changeTheme}>Theme</button>
+            <button onClick={changeJwt}>Get Jwt</button>
             <br/>
             <p>{jwt2}</p>
             <p>{jwt2==null ? "You are not logged in":"Logged in"}</p>
