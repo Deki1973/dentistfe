@@ -6,6 +6,8 @@ import AppointmentList from "../components/AppointmentList";
 import AppointmentDetail from "../components/AppointmentDetail";
 import AppointmentDetail2 from "../components/AppointmentDetail2";
 
+import "../styles/Appointment.scss"
+
 
 const Appointment = () => {
 
@@ -382,25 +384,25 @@ const Appointment = () => {
 
     }, [])
     return (
-        <>
+        <div className="appointmentPage">
             <h1>Appointment page</h1>
             <button onClick={handleCreateNewAppointment}>Create New Appointment</button>
             <form action="submit" onSubmit={handleSubmit}>
                 {singleAppointment === null &&
                     <div>
                         <fieldset id="fsDone">
-                            <input type="radio" value="null" name="fsDone" id="radioAll" defaultChecked="checked" onClick={e => { setDone(null) }} /><label>All</label>
-                            <input type="radio" value="false" name="fsDone" id="radioNotDone" onClick={e => { setDone(false) }} /><label>Not completed</label>
-                            <input type="radio" value="true" name="fsDone" id="radioDone" onClick={e => { setDone(true) }} /><label>Completed</label>
+                            <input type="radio" value="null" name="fsDone" id="radioAll" defaultChecked="checked" className="inputRadio"  onClick={e => { setDone(null) }} /><label>All</label>
+                            <input type="radio" value="false" name="fsDone" id="radioNotDone" className="inputRadio" onClick={e => { setDone(false) }} /><label>Not completed</label>
+                            <input type="radio" value="true" name="fsDone" id="radioDone" className="inputRadio" onClick={e => { setDone(true) }} /><label>Completed</label>
                         </fieldset>
 
                     </div>}
 
                 <input type="datetime-local" id="datetime-local-3" onChange={handleDateTimeLocalChange} />
-                <input type="text" placeholder="appointmentDateAndTime" id="appointmentDateAndTime" />
+                <input type="text" placeholder="appointmentDateAndTime" id="appointmentDateAndTime"  />
 
 
-                <select id="selectClient">
+                <select id="selectClient" className="select1">
                     <option id="clientId" value="id">Client ID: </option>
                     <option id="clientFullName" value="name">Client Full Name: </option>
                     <option id="clientContact" value="contact">Contact: </option>
@@ -414,7 +416,7 @@ const Appointment = () => {
 
 
 
-                <select id="selectDentist">
+                <select id="selectDentist" className="select1">
                     <option id="dentistId" value="id">Dentst ID: </option>
                     <option id="dentistFullName" value="name">Dentist Full Name: </option>
                     <option id="dentistContact" value="contact">Contact: </option>
@@ -425,10 +427,12 @@ const Appointment = () => {
                     console.log(dentistParam)
                 }
                 } />
+                <br />
+                <button type="submit" id="btnGetExact">Get Exact</button>
                 <button type="submit" id="btnGetAll">Get All</button>
                 <button type="submit" id="btnGetByClient">Get By Client</button>
                 <button type="submit" id="btnGetByDentist">Get By Dentist</button>
-                <button type="submit" id="btnGetExact">Get Exact</button>
+                
             </form>
             {done != null && <AppointmentList appointments={appointments} done={done} />}
             {done == null && <AppointmentList appointments={appointments} done={done} />}
@@ -437,7 +441,7 @@ const Appointment = () => {
 
 
 
-        </>
+        </div>
     );
 }
 
