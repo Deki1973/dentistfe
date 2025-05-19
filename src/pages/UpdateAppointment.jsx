@@ -219,7 +219,7 @@ const UpdateAppointment = () => {
                 <td>Description: </td><td>{description}</td>
             </tr>
             <tr>
-                <td>Scheduled: </td><td>{appointmentDateAndTime.substring(0,16)}</td>
+                <td>Scheduled: </td><td>{appointmentDateAndTime && appointmentDateAndTime.substring(0,16)}</td>
             </tr>
             <tr>
                 <td>Dentist ID: </td><td>{dentistName}, ID: {dentistId}</td>
