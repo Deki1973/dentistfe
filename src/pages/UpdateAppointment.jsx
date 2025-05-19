@@ -5,6 +5,8 @@ import { useJwt } from "../contexts/JwtContext";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
+import "../styles/UpdateAppointment.scss"
+
 const UpdateAppointment = () => {
 
     let { id } = useParams()
@@ -193,7 +195,7 @@ const UpdateAppointment = () => {
 
     }, []);
 
-    return (<>
+    return (<div className="updateAppointment">
 
         <h1>Update Appointment Page {id}</h1>
         <ul>
@@ -206,9 +208,36 @@ const UpdateAppointment = () => {
             <li>Completed: {completed ? "Yes" : "No"}</li>
 
         </ul>
+        <table>
+            <tr>
+                <td>Appointment ID:</td><td>{appointmentId}</td>
+            </tr>
+            <tr>
+                <td>Client: </td><td>{clientName}, ID: {clientId}</td>
+            </tr>
+            <tr>
+                <td>Description: </td><td>{description}</td>
+            </tr>
+            <tr>
+                <td>Scheduled: </td><td>{appointmentDateAndTime.substring(0,16)}</td>
+            </tr>
+            <tr>
+                <td>Dentist ID: </td><td>{dentistName}, ID: {dentistId}</td>
+            </tr>
+            <tr>
+                <td>Price: </td><td>{price}</td>
+            </tr>
+            <tr>
+                <td>Completed: </td><td>{completed ? "Yes" : "No"}</td>
+            </tr>
+        </table>
+
         <form action="submit" onSubmit={handleSubmit}>
 
-            <input type="datetime-local" id="datetime-local-1"
+          
+            <table>
+                <tr>
+                    <td>Date and time: </td><td>  <input type="datetime-local" id="datetime-local-1"
 
                 //defaultValue="2018-06-12T19:30"
                 defaultValue={appointmentDateAndTime}
@@ -228,22 +257,35 @@ const UpdateAppointment = () => {
 
 
 
-            />
-            <input type="text" value={appointmentDateAndTime} onChange={e => { setAppointmentDateAndTime(e.target.value) }} />
-            <input type="text" id="description" value={description} onChange={e => { setDescription(e.target.value) }} />
-            <input type="text" id="price" value={price} onChange={e => { setPrice(e.target.value) }} />
-            <input type="checkbox" id="completed" checked={completed} onChange={e => {
+            /></td>
+
+                </tr>
+                <tr>
+                    <td>Description: </td><td><input type="text" id="description" value={description} onChange={e => { setDescription(e.target.value) }} /></td>
+                </tr>
+                <tr>
+                    <td>Price: </td><td><input type="text" id="price" value={price} onChange={e => { setPrice(e.target.value) }} /></td>
+                </tr>
+                <tr>
+                    <td>Completed: </td><td><input type="checkbox" id="completed" checked={completed} onChange={e => {
 
                 setCompleted((completed) => !completed)
                 console.log(completed)
-            }} />
+            }} /></td>
+                </tr>
+
+            </table>
+            <input type="text" value={appointmentDateAndTime} onChange={e => { setAppointmentDateAndTime(e.target.value) }} id="inputDateAndTime" />
+            
+            
+            
             <br />
 
             <button type="submit" id="btnSave">Save</button>
             <button type="submit" id="btnBack">Back</button>
             <button type="submit" id="btnDelete">Delete</button>
         </form>
-    </>);
+    </div>);
 }
 
 export default UpdateAppointment;
