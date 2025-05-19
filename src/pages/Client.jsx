@@ -33,7 +33,7 @@ const Client = () => {
 
 
 
-        const response = await fetch(`http://localhost:8080/client/getall`,
+        const response = await fetch(`${urlHeroku}/client/getall`,
             {
                 method: "GET",
                 mode: "cors",
