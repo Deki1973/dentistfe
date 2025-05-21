@@ -15,7 +15,7 @@ export const JwtProvider = ({ children }) => {
     
     const [jwt2,setJwt2]=useState()
   
-    const getJwt=async(userName,passWord)=>{
+    const getJwt=async()=>{
        const userName="foo1"
      const passWord="foofoo1"
         console.log(userName+"|"+passWord)
