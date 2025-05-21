@@ -72,7 +72,7 @@ const Client = () => {
         //console.log(clientAttribute)
         //console.log(clientAttributeValue)
 
-        const url = `http://localhost:8080/client/${clientAttribute}/${clientAttributeValue}`
+        const url = `${urHeroku}/client/${clientAttribute}/${clientAttributeValue}`
 
         console.log(url)
         const response = await axios(url, {
