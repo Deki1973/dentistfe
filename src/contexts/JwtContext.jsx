@@ -16,8 +16,8 @@ export const JwtProvider = ({ children }) => {
     const [jwt2,setJwt2]=useState()
   
     const getJwt=async(userName,passWord)=>{
-       // const userName="foo1"
-     //   const passWord="foofoo1"
+       const userName="foo1"
+     const passWord="foofoo1"
         console.log(userName+"|"+passWord)
 
         const response=await fetch(`${urlHeroku}/api/users/authenticate`,
