@@ -22,7 +22,7 @@ const NavBar = () => {
             <input type="text" placeholder="Username: " id="username" defaultValue="foo1"/>
             <input type="password" placeholder="Password: " id="password" defaultValue="foofoo1"/>
             <button onClick={changeTheme}>Theme</button>
-            <button onClick={changeJwt}>Get Jwt</button>
+            <button onClick={()=>{changeJwt("foo1","foofoo1"}>Get Jwt</button>
             <br/>
             <p>{jwt2}</p>
             <p>{jwt2==null ? "You are not logged in":"Logged in"}</p>
