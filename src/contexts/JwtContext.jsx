@@ -15,9 +15,9 @@ export const JwtProvider = ({ children }) => {
     
     const [jwt2,setJwt2]=useState()
   
-    const getJwt=async()=>{
-        const userName="foo1"
-        const passWord="foofoo1"
+    const getJwt=async(userName,passWord)=>{
+       // const userName="foo1"
+     //   const passWord="foofoo1"
         console.log(userName+"|"+passWord)
 
         const response=await fetch(`${urlLocal}/api/users/authenticate`,
