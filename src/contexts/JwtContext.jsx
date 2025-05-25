@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { urlHeroku, urlHeroku } from "../script/urls";
+import { urlHeroku, urlLocal } from "../script/urls";
 
 const JwtContext = createContext(null);
 
