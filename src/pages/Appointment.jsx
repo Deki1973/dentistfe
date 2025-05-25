@@ -65,7 +65,7 @@ const Appointment = () => {
         if (submitter === "btnGetAll") {
 
             const response = await axios({
-                url: `http://localhost:8080/appointment/getall`,
+                url: `urlHeroku/appointment/getall`,
                 method: "GET",
                 mode: "cors",
                 headers: {
@@ -94,7 +94,7 @@ const Appointment = () => {
 
         if (submitter === "btnGetByClient") {
             console.log("Get client by" + clientAttribute + "|" + clientValue)
-            const url1 = `http://localhost:8080/client/${clientAttribute}/${clientValue}`
+            const url1 = `urlHeroku/client/${clientAttribute}/${clientValue}`
             console.log("url1:" + url1)
 
             const response = await axios(url1, {
@@ -135,7 +135,7 @@ const Appointment = () => {
 
         if (submitter === "btnGetByDentist") {
             console.log("Get dentist by" + dentistAttribute + "|" + dentistValue)
-            const url1 = `http://localhost:8080/dentist/${dentistAttribute}/${dentistValue}`
+            const url1 = `urlHeroku/dentist/${dentistAttribute}/${dentistValue}`
             console.log(url1)
             const response = await axios(url1, {
 
@@ -177,7 +177,7 @@ const Appointment = () => {
         if (submitter === "btnGetExact") {
             // pribavi ID clienta iz baze
 
-            const urlClient = `http://localhost:8080/client/${clientAttribute}/${clientValue}`
+            const urlClient = `urlHeroku/client/${clientAttribute}/${clientValue}`
             console.log(urlClient)
 
 
@@ -213,7 +213,7 @@ const Appointment = () => {
 
             // pribavi ID dentista iz baze
 
-            const urlDentist = `http://localhost:8080/dentist/${dentistAttribute}/${dentistValue}`
+            const urlDentist = `urlHeroku/dentist/${dentistAttribute}/${dentistValue}`
             console.log(urlDentist)
             const responseDentist = await axios(urlDentist, {
 
@@ -270,7 +270,7 @@ const Appointment = () => {
             }
             console.log("btnGetExact...")
             console.log(clientId2 + "|" + dentistId2 + "|" + correctedAppointmentScheduled)
-            const url1 = `http://localhost:8080/appointment/getExact`
+            const url1 = `urlHeroku/appointment/getExact`
             const response = await axios(url1, {
                 method: "POST",
                 mode: "cors",
@@ -304,7 +304,7 @@ const Appointment = () => {
 
         console.log(clientId2)
         //clientId2=document.getElementById("inputClientParam").value
-        const url2 = `http://localhost:8080/appointment/client/${clientId2}`
+        const url2 = `urlHeroku/appointment/client/${clientId2}`
         console.log(url2)
         const response2 = await axios(url2,
             {
@@ -329,7 +329,7 @@ const Appointment = () => {
     const getAppointmentByDentistId = async (e, dentistId2) => {
 
         console.log(dentistId2)
-        const url2 = `http://localhost:8080/appointment/dentist/${dentistId2}`
+        const url2 = `urlHeroku/appointment/dentist/${dentistId2}`
         console.log(url2)
         const response2 = await axios(url2, {
             method: "GET",

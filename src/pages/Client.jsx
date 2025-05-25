@@ -7,7 +7,7 @@ import { useJwt } from "../contexts/JwtContext"
 import ClientDetail2 from "../components/ClientDetail2"
 import { Navigate, useNavigate } from "react-router-dom"
 import axios from "axios"
-import { urlHeroku, urlLocal } from "../script/urls"
+import { urlHeroku, urlHeroku } from "../script/urls"
 
 import "../styles/ClientPage.scss"
 
@@ -33,7 +33,7 @@ const Client = () => {
 
 
 
-        const response = await fetch(`${urlLocal}/client/getall`,
+        const response = await fetch(`${urlHeroku}/client/getall`,
             {
                 method: "GET",
                 mode: "cors",
@@ -72,7 +72,7 @@ const Client = () => {
         //console.log(clientAttribute)
         //console.log(clientAttributeValue)
 
-        const url = `http://localhost:8080/client/${clientAttribute}/${clientAttributeValue}`
+        const url = `urlHeroku/client/${clientAttribute}/${clientAttributeValue}`
 
         console.log(url)
         const response = await axios(url, {
