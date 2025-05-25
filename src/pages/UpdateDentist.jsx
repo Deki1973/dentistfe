@@ -56,7 +56,7 @@ const UpdateDentist = () => {
         console.log(e.nativeEvent.submitter.id)
 
         if (e.nativeEvent.submitter.id === "btnSave") {
-            const response = await fetch(`urlHeroku/dentist/${id}`, {
+            const response = await fetch(`${urlHeroku}/dentist/${id}`, {
                 method: "PUT",
                 mode: "cors",
                 body: JSON.stringify({
