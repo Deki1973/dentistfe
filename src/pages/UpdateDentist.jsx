@@ -21,7 +21,7 @@ const UpdateDentist = () => {
 
     const getDentistById = async (e) => {
         console.log("get dentist by id..." + id)
-        const response = await fetch(`urlHeroku/dentist/id/${id}`,
+        const response = await fetch(`${urlHeroku}/dentist/id/${id}`,
             {
                 method: "GET",
                 mode: "cors",
