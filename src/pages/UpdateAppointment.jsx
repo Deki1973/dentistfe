@@ -7,6 +7,8 @@ import axios from "axios";
 
 import "../styles/UpdateAppointment.scss"
 
+import { urlHeroku,urlLocal } from "../script/urls";
+
 const UpdateAppointment = () => {
 
     let { id } = useParams()

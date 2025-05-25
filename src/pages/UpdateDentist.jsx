@@ -5,6 +5,8 @@ import { useJwt } from "../contexts/JwtContext";
 import { useNavigate } from "react-router-dom";
 import "../styles/UpdateDentist.scss"
 
+import { urlHeroku,urlLocal } from "../script/urls";
+
 const UpdateDentist = () => {
 
     let { id } = useParams()
