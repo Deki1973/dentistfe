@@ -1,0 +1,36 @@
+.navBar{
+    display: flexbox;
+   
+    
+   
+    
+    
+}
+.links{
+   
+display: flex;
+align-items: center;
+justify-content: center;
+
+   
+
+    
+    
+    
+}
+.linkTo{
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.login{
+    button{
+        width: 100px;
+        height: 30px;
+        font-size: medium;
+    }
+    input{
+        font-size: medium;
+        width: 200px;
+        height: 30px;
+    }
+}

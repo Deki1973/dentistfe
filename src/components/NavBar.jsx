@@ -3,6 +3,9 @@ import {Link} from "react-router-dom"
 import { useTheme } from "../contexts/ThemeContext";
 import { useJwt } from "../contexts/JwtContext";
 
+import "../styles/NavBar.scss"
+import { useState } from "react";
+
 
 
 
@@ -10,19 +13,36 @@ import { useJwt } from "../contexts/JwtContext";
 const NavBar = () => {
 
     const {theme,changeTheme,jwt1}=useTheme();
-    const {jwt2,changeJwt}=useJwt();
+    const {jwt2,changeJwt,logout}=useJwt();
+    
+    
+    //const userName="foo1"
+    //const passWord="foofoo1"
 
+    const [userName,setUserName]=useState("foo1")
+    const [passWord, setPassWord]=useState("foofoo1")
+
+
+    const handleLoginClick=()=>{
+        changeJwt(userName,passWord)
+    }
 
     return ( 
-        <div className="nav-bar">
-            <Link to="/">Home</Link>
-            <Link to="/client">Client</Link>
-            <Link to="/dentist">Denitst</Link>
-            <Link to="/appointment">Appointment</Link>
-            <input type="text" placeholder="Username: " id="username" defaultValue="foo1"/>
-            <input type="password" placeholder="Password: " id="password" defaultValue="foofoo1"/>
+        <div className="navBar">
+             <div className="login">
+            <input type="text" placeholder="Username: " id="username" defaultValue="foo1" onChange={(e)=>{setUserName(e.target.value)}}/>
+            <input type="password" placeholder="Password: " id="password" defaultValue="foofoo1" onChange={(e)=>{setPassWord(e.target.value)}}/>
             <button onClick={changeTheme}>Theme</button>
-            <button onClick={changeJwt}>Get Jwt</button>
+            <button onClick={handleLoginClick}>Get Jwt</button>
+            <button onClick={logout}>Logout</button>
+            </div>
+            <div className="links">
+            <Link to="/" className="linkTo">Home</Link>
+            <Link to="/client" className="linkTo">Client</Link>
+            <Link to="/dentist"className="lintTo">Denitst</Link>
+            <Link to="/appointment" className="linkTo">Appointment</Link>
+            </div>
+           
             <br/>
             <p>{jwt2}</p>
             <p>{jwt2==null ? "You are not logged in":"Logged in"}</p>
