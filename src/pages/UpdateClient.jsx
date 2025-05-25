@@ -90,7 +90,7 @@ const UpdateClient = () => {
 
             console.log(id)
 
-            const response = await fetch(`urlHeroku/client/${id}`,
+            const response = await fetch(`${urlHeroku}/client/${id}`,
                 {
                     method: "DELETE",
                     mode: "cors",

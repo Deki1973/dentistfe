@@ -34,7 +34,7 @@ const CreateNewAppointment = () => {
             const message = `${clientName}+"|"+${dentistName}+"|"+${pickerDefaultValue}`
             console.log(message)
 
-            const responseDentist = await axios(`urlHeroku/dentist/name/${dentistName}`, {
+            const responseDentist = await axios(`${urlHeroku}/dentist/name/${dentistName}`, {
                 method: "GET",
                 mode: "cors",
                 headers: {
@@ -57,7 +57,7 @@ const CreateNewAppointment = () => {
             console.log(responseDentist.data[0].fullName)
 
 
-            const responseClient = await axios(`urlHeroku/client/name/${clientName}`, {
+            const responseClient = await axios(`${urlHeroku}/client/name/${clientName}`, {
                 method: "GET",
                 mode: "cors",
                 headers: {
@@ -107,7 +107,7 @@ const CreateNewAppointment = () => {
             }
 
             const responseAppointment = await axios({
-                url: `urlHeroku/appointment`,
+                url: `${urlHeroku}/appointment`,
                 method: "POST",
                 mode: "cors",
                 data: newAppointment,

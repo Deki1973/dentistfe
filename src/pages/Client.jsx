@@ -72,7 +72,7 @@ const Client = () => {
         //console.log(clientAttribute)
         //console.log(clientAttributeValue)
 
-        const url = `urlHeroku/client/${clientAttribute}/${clientAttributeValue}`
+        const url = `${urlHeroku}/client/${clientAttribute}/${clientAttributeValue}`
 
         console.log(url)
         const response = await axios(url, {

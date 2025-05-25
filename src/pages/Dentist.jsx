@@ -7,6 +7,7 @@ import { useJwt } from "../contexts/JwtContext"
 import { Navigate, useNavigate } from "react-router-dom"
 
 import "../styles/DentistPage.scss"
+import { urlHeroku } from "../script/urls";
 
 
 const Dentist = () => {
@@ -30,7 +31,7 @@ const Dentist = () => {
 
 
 
-        const response = await fetch(`urlHeroku/dentist/getall`,
+        const response = await fetch(`${urlHeroku}/dentist/getall`,
             {
                 method: "GET",
                 mode: "cors",
@@ -62,7 +63,7 @@ const Dentist = () => {
         const attributeValue = document.getElementById("dentistAttribute").value
 
         const response = await fetch(
-            `urlHeroku/dentist/${dentistAttribute}/${attributeValue}`,
+            `${urlHeroku}/dentist/${dentistAttribute}/${attributeValue}`,
             {
                 method: "GET",
                 mode: "cors",

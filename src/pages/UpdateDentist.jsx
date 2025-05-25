@@ -88,7 +88,7 @@ const UpdateDentist = () => {
 
             console.log(id)
 
-            const response = await fetch(`urlHeroku/dentist/${id}`,
+            const response = await fetch(`${urlHeroku}/dentist/${id}`,
                 {
                     method: "DELETE",
                     mode: "cors",
