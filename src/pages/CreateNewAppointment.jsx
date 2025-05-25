@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 
 import "../styles/CreateNewAppointment.scss"
 
+import { urlHeroku,urlLocal } from "../script/urls";
+
 
 const CreateNewAppointment = () => {
 
