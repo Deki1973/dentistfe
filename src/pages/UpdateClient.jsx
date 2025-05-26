@@ -144,12 +144,12 @@ const UpdateClient = () => {
                             }} /></td>
                         </tr>
                         <tr>
-                            <td className="left">Contact: </td><td> <input type="text" placeholder="Contact: " value={contact} onChange={e => {
+                            <td className="left">Contact: </td><td className="right"> <input type="text" placeholder="Contact: " value={contact} onChange={e => {
                                 setContact(e.target.value)
                             }} /></td>
                         </tr>
                         <tr>
-                            <td className="left">Note: </td><td><textarea placeholder="Note: " value={note} onChange={e => {
+                            <td className="left">Note: </td><td className="right"><textarea placeholder="Note: " value={note!==null ? {note}:"---"} onChange={e => {
                                 setNote(e.target.value)
                             }}></textarea></td>
                         </tr>
