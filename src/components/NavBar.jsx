@@ -44,7 +44,7 @@ const NavBar = () => {
             </div>
            
             <br/>
-            <p>{jwt2==null ? "You are not logged in":"Logged in"}</p>
+            <h3>{jwt2==null ? "You are not logged in":"Logged in"}</h3>
             
            
 
