@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useJwt } from "../contexts/JwtContext";
 import { useNavigate } from "react-router-dom";
 
+import { urlHeroku,urlLocal } from "../script/urls";
+
 import "../styles/AddNewDentist.scss"
 
 const AddNewDentist = () => {

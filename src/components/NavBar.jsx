@@ -32,8 +32,8 @@ const NavBar = () => {
              <div className="login">
             <input type="text" placeholder="Username: " id="username" defaultValue="foo1" onChange={(e)=>{setUserName(e.target.value)}}/>
             <input type="password" placeholder="Password: " id="password" defaultValue="foofoo1" onChange={(e)=>{setPassWord(e.target.value)}}/>
-            <button onClick={changeTheme}>Theme</button>
-            <button onClick={handleLoginClick}>Get Jwt</button>
+            
+            <button onClick={handleLoginClick}>Login</button>
             <button onClick={logout}>Logout</button>
             </div>
             <div className="links">
@@ -44,7 +44,6 @@ const NavBar = () => {
             </div>
            
             <br/>
-            <p>{jwt2}</p>
             <p>{jwt2==null ? "You are not logged in":"Logged in"}</p>
             
            

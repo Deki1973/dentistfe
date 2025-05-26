@@ -200,16 +200,7 @@ const UpdateAppointment = () => {
     return (<div className="updateAppointment">
 
         <h1>Update Appointment Page {id}</h1>
-        <ul>
-            <li>Appointment ID: {appointmentId}</li>
-            <li>Client: {clientName}, ID:{clientId}</li>
-            <li>Intervention: {description}</li>
-            <li>Scheduled: {appointmentDateAndTime}</li>
-            <li>Dentist {dentistName}, ID:{dentistId}</li>
-            <li>Price:{price}</li>
-            <li>Completed: {completed ? "Yes" : "No"}</li>
-
-        </ul>
+        
         <table>
             <tr>
                 <td>Appointment ID:</td><td>{appointmentId}</td>
