@@ -54,7 +54,8 @@ const ClientDetail2 = (prop) => {
                 </tr>
                 <tr>
                     <td className="left">Note: </td>
-                    {client.note!==null && <td className="right">{client.note}</td>}
+                    <td className="right">{note!==null ? note:" "}</td>
+                    
                     
                 
                 </tr>

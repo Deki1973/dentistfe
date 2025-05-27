@@ -149,7 +149,7 @@ const UpdateClient = () => {
                             }} /></td>
                         </tr>
                         <tr>
-                            <td className="left">Note: </td><td className="right"><textarea placeholder="Note: " value={note!==null ? {note}:"---"} onChange={e => {
+                            <td className="left">Note: </td><td className="right"><textarea placeholder="Note: " value={note} onChange={e => {
                                 setNote(e.target.value)
                             }}></textarea></td>
                         </tr>
