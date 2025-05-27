@@ -199,7 +199,7 @@ const UpdateAppointment = () => {
 
     return (<div className="updateAppointment">
 
-        <h1>Update Appointment Page {id}</h1>
+        <h1>Update Appointment Data</h1>
         
         <table>
             <tr>
@@ -209,19 +209,7 @@ const UpdateAppointment = () => {
                 <td>Client: </td><td>{clientName}, ID: {clientId}</td>
             </tr>
             <tr>
-                <td>Description: </td><td>{description}</td>
-            </tr>
-            <tr>
-                <td>Scheduled: </td><td>{appointmentDateAndTime && appointmentDateAndTime.substring(0,16)}</td>
-            </tr>
-            <tr>
                 <td>Dentist ID: </td><td>{dentistName}, ID: {dentistId}</td>
-            </tr>
-            <tr>
-                <td>Price: </td><td>{price}</td>
-            </tr>
-            <tr>
-                <td>Completed: </td><td>{completed ? "Yes" : "No"}</td>
             </tr>
         </table>
 

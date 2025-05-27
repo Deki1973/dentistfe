@@ -52,20 +52,40 @@ const AppointmentDetail2 = (prop) => {
         
       });
     return ( 
-        <>
-            <ul>
-                <li>{appointment.appointmentId}</li>
-                <li>{appointment.client.fullName}</li>
-                <li>{appointment.dentist.fullName}</li>
-                <li>{appointment.description}</li>
-                <li>{correctedAppointmentScheduled}</li>
-                {(appointment.completed===null || appointment.completed===false) ? <li>"No"</li>:<li>"Yes"</li>}
-                <li>Price: {appointment.price}</li>
-            </ul>
+        <div className="appointmentDetail">
+
+          <table>
+            <th colSpan="2">Appointment details: </th>
+            <tr>
+                <td className="left">ID: </td><td className="right">{appointment.appointmentId}</td>
+            </tr>
+            <tr>
+                <td className="left">Client name: </td><td className="right">{appointment.client.fullName}</td>
+            </tr>
+            <tr>
+                <td className="left">Scheduled: </td><td className="right">{correctedAppointmentScheduled.substring(0, 10) + " " + correctedAppointmentScheduled.substring(11, 16)}</td>
+            </tr>
+            <tr>
+                <td className="left">Description: </td><td className="right">{appointment.description}</td>
+            </tr>
+            <tr>
+                <td className="left">Dentist: </td><td className="right">{appointment.dentist.fullName}</td>
+            </tr>
+            <tr>
+                <td className="left">Completed: </td><td className="right">{(appointment.completed===null || appointment.completed===false) ? "No":"Yes"}</td>
+            </tr>
+            <tr>
+                <td className="left">Price: </td><td className="right">{appointment.price ? appointment.price : "0"}</td>
+            </tr>
+
+        </table>
+            
+
+
             <form action="submit" onSubmit={handleSubmit}>
                 <button type="submit" id="btnUpdate3">Edit</button>
             </form>
-        </>
+        </div>
      );
 }
  
