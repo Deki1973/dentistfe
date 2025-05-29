@@ -24,7 +24,7 @@ const AddNewDentist = () => {
 
     if (e.nativeEvent.submitter.id === "btnSave") {
       console.log("handle save")
-      const response = await fetch(`${urlHeroku}/dentist`, {
+      const response = await fetch(`${urlLocal}/dentist`, {
         method: "POST",
         mode: "cors",
         body: JSON.stringify({

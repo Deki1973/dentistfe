@@ -27,13 +27,13 @@ const Client = () => {
     const handleGetAll = async () => {
 
         //window.alert("handle click...")   
-        console.log(jwt2)
+        //console.log(jwt2)
 
         //      const jwt1="eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmb28xIiwicm9sZXMiOlsiQURNSU4iXSwiZXhwIjoxNzQyNDk1OTc3LCJpYXQiOjE3NDI0OTIzNzd9.QVxNzsrx0QcR0D-L8BG0dOHz5iEurKtidHDkm19hxBU"
 
 
 
-        const response = await fetch(`${urlHeroku}/client/getall`,
+        const response = await fetch(`${urlLocal}/client/getall`,
             {
                 method: "GET",
                 mode: "cors",
@@ -48,6 +48,12 @@ const Client = () => {
 
         console.log("Response is:\n")
         console.log(response)
+        
+        if (response.status===403){
+            window.alert("Access denied.\nAre you logged in?")
+            return
+        }
+
         const json1 = await response.json()
         console.log(json1)
         setClients(json1)
@@ -72,7 +78,7 @@ const Client = () => {
         //console.log(clientAttribute)
         //console.log(clientAttributeValue)
 
-        const url = `${urlHeroku}/client/${clientAttribute}/${clientAttributeValue}`
+        const url = `${urlLocal}/client/${clientAttribute}/${clientAttributeValue}`
 
         console.log(url)
         const response = await axios(url, {
@@ -84,8 +90,9 @@ const Client = () => {
             }
         }).then((response) => {
 
+            console.log("response is: "+response.data)
 
-            if (response.status === 204) {
+            if (response.status === 204 || response.data==0 || response.data==="" || response.data===null) {
                 window.alert("There is no client with given parameter.")
                 return
             }
@@ -101,7 +108,9 @@ const Client = () => {
             }
             if (clientAttribute === "name") {
                 // moze da vrati listu objekata kao odgovor
+                // zato sam upotrebio dve komponente za prikaz detalja o pacijentu
                 console.log(data.length)
+                
                 /*
                 if(data.length>1){
                     window.alert("mulitple answers")

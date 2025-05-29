@@ -31,7 +31,7 @@ const Dentist = () => {
 
 
 
-        const response = await fetch(`${urlHeroku}/dentist/getall`,
+        const response = await fetch(`${urlLocal}/dentist/getall`,
             {
                 method: "GET",
                 mode: "cors",
@@ -63,7 +63,7 @@ const Dentist = () => {
         const attributeValue = document.getElementById("dentistAttribute").value
 
         const response = await fetch(
-            `${urlHeroku}/dentist/${dentistAttribute}/${attributeValue}`,
+            `${urlLocal}/dentist/${dentistAttribute}/${attributeValue}`,
             {
                 method: "GET",
                 mode: "cors",
@@ -115,7 +115,7 @@ const Dentist = () => {
                     <option value="contact">Contact: </option>
 
                 </select>
-                <input type="text" id="dentistAttribute" placeholder="value" className="dentistAttributeValue"/>
+                <input type="text" id="dentistAttribute" placeholder="value" className="dentistAttributeValue" required/>
 
 
                 <button type="submit" id="btnGetDentist">Get Dentist</button>
