@@ -90,12 +90,19 @@ const Client = () => {
             }
         }).then((response) => {
 
-            console.log("response is: "+response.data)
+            console.log("response is: "+response)
+            console.log("response data is: "+response.data)
+            console.log("response.status is "+response.status)
+
+           
 
             if (response.status === 204 || response.data==0 || response.data==="" || response.data===null) {
                 window.alert("There is no client with given parameter.")
+                setItem(null)
                 return
             }
+
+           
             const data = response.data
 
 
@@ -127,7 +134,15 @@ const Client = () => {
 
 
 
-        }).catch((error) => { console.log(error.message) })
+        }).catch((error) => { 
+            console.log("Oops! Error: "+error.message) 
+            window.alert(error.message)
+            if(error.message==="Request failed with status code 403"){
+                window.alert("Access denied. Are you logged in?")
+            }
+            
+            
+        })
 
     }
     const handleAddNewClient = () => {

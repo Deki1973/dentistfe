@@ -42,6 +42,7 @@ const ClientDetail2 = (prop) => {
     return (<div className="clientStyle"> 
        
             <table>
+                <tbody>
                 <tr>
                     <td className="left">Client ID:</td><td className="right"> {client.clientId}</td>
                 </tr>
@@ -59,6 +60,7 @@ const ClientDetail2 = (prop) => {
                     
                 
                 </tr>
+                </tbody>
             </table>
            
             
