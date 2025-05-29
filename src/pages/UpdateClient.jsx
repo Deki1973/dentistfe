@@ -85,7 +85,7 @@ const UpdateClient = () => {
         }
 
         if (e.nativeEvent.submitter.id === "btnDelete") {
-            window.alert("delete")
+            
             if(window.confirm("WARNING: This operation cannot be undone!\nAre you sure?")===false){
                 return
             }
@@ -101,11 +101,18 @@ const UpdateClient = () => {
                         'Content-type': 'application/json'
                     }
                 }
-            )
+            ).catch((error)=>{window.alert("Error: "+error.message)})
             console.log(response)
+            if(response.status===204){
+                window.alert("Something went wrong.\nThere is no such client.\nResponse status: "+response.status)
+                return
+            }
             //const data = await response.json()
             //console.log(data)
+            if(response.status===200)
+            {
             window.alert(`Client ID ${id} deleted.`)
+            }
 
 
 
