@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "../styles/AddNewClient.scss"
 
 import { urlHeroku,urlLocal } from "../script/urls";
+import axios from "axios";
 
 
 const AddNewClient = () => {
@@ -37,8 +38,16 @@ const AddNewClient = () => {
                     'Authorization': `Bearer ${jwt2}`,
                     'Content-Type': 'application/json',
                 }
-            })
+            }).catch((error)=>{window.alert("Oops!\nError: "+error.message)})
+                
+
             console.log(response)
+            
+            if (response.status===403){
+                window.alert("Access denied.\nAre you logged in?")
+                return
+            }
+
             const json1 = await response.json();
             console.log("Successfuly added: ")
             console.log(json1)
@@ -69,6 +78,7 @@ const AddNewClient = () => {
                         <tr>
                             <td className="left">Full Name: </td><td className="right"><input type="text" id="inputFullName"
                                 placeholder="Full Name: " value={fullName}
+                                required
                                 onChange={e => {
                                     setFullName(e.target.value)
                                 }} /></td>
@@ -79,6 +89,7 @@ const AddNewClient = () => {
                             <td className="right"> <input type="text" id="inputContact"
                                 placeholder="Contact: "
                                 value={contact}
+                                required
                                 onChange={e => {
                                     setContact(e.target.value)
                                 }} /></td>
