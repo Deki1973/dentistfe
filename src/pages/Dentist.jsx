@@ -7,7 +7,7 @@ import { useJwt } from "../contexts/JwtContext"
 import { Navigate, useNavigate } from "react-router-dom"
 
 import "../styles/DentistPage.scss"
-import { urlHeroku } from "../script/urls";
+import { checkResponseStatus, urlHeroku, urlLocal } from "../script/urls";
 
 
 const Dentist = () => {
@@ -46,6 +46,9 @@ const Dentist = () => {
 
         console.log("Response is:\n")
         console.log(response)
+
+        if (checkResponseStatus(response)===false){return}
+
         const json1 = await response.json()
         console.log(json1)
 

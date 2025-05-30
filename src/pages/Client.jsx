@@ -7,7 +7,7 @@ import { useJwt } from "../contexts/JwtContext"
 import ClientDetail2 from "../components/ClientDetail2"
 import { Navigate, useNavigate } from "react-router-dom"
 import axios from "axios"
-import { urlHeroku, urlLocal } from "../script/urls"
+import { checkResponseStatus, urlHeroku, urlLocal } from "../script/urls"
 
 import "../styles/ClientPage.scss"
 
@@ -49,10 +49,7 @@ const Client = () => {
         console.log("Response is:\n")
         console.log(response)
         
-        if (response.status===403){
-            window.alert("Access denied.\nAre you logged in?")
-            return
-        }
+        checkResponseStatus(response)
 
         const json1 = await response.json()
         console.log(json1)
@@ -90,17 +87,24 @@ const Client = () => {
             }
         }).then((response) => {
 
+            /*
             console.log("response is: "+response)
             console.log("response data is: "+response.data)
             console.log("response.status is "+response.status)
+*/
+            
 
-           
-
+           if(checkResponseStatus(response)===false){
+            setItem(null)
+           }
+/*
             if (response.status === 204 || response.data==0 || response.data==="" || response.data===null) {
                 window.alert("There is no client with given parameter.")
                 setItem(null)
                 return
             }
+
+  */          
 
            
             const data = response.data
@@ -135,12 +139,8 @@ const Client = () => {
 
 
         }).catch((error) => { 
-            console.log("Oops! Error: "+error.message) 
-            window.alert(error.message)
-            if(error.message==="Request failed with status code 403"){
-                window.alert("Access denied. Are you logged in?")
-            }
-            
+            //console.log("Oops! Error: "+error.message) 
+            checkResponseStatus(error)  // proverava se error.status
             
         })
 
