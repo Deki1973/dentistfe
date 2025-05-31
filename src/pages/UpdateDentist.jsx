@@ -5,7 +5,7 @@ import { useJwt } from "../contexts/JwtContext";
 import { useNavigate } from "react-router-dom";
 import "../styles/UpdateDentist.scss"
 
-import { urlHeroku,urlLocal } from "../script/urls";
+import { checkResponseStatus, urlHeroku,urlLocal } from "../script/urls";
 
 const UpdateDentist = () => {
 
@@ -70,9 +70,18 @@ const UpdateDentist = () => {
                 }
             });
             console.log(response)
+            console.log(response.status)
+            if(checkResponseStatus(response)===false){
+                return
+            }
+            
             const data = await response.json()
             console.log(data)
-            console.log(e)
+
+            if(data.message==="Rows affected: 1"){
+                window.alert("Data successfuly updated.")
+            }
+            //console.log(e)
         }
 
 
@@ -138,13 +147,19 @@ const UpdateDentist = () => {
                         </tr>
                         <tr>
                             <td className="left">Full Name: </td>
-                            <td className="right"><input type="text" placeholder="Full Name: " value={fullName} onChange={e => {
+                            <td className="right"><input type="text" placeholder="Full Name: " 
+                            value={fullName} 
+                            required
+                            onChange={e => {
                                 setFullName(e.target.value)
                             }} /></td>
                         </tr>
                         <tr>
                             <td className="left">Contact: </td>
-                            <td className="right">  <input type="text" placeholder="Contact: " value={contact} onChange={e => {
+                            <td className="right">  <input type="text" placeholder="Contact: " 
+                            value={contact} 
+                            required
+                            onChange={e => {
                                 setContact(e.target.value)
                             }} /></td>
                         </tr>

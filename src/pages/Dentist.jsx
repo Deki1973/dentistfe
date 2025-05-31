@@ -60,6 +60,8 @@ const Dentist = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        setItem(null)
+        setDentists(null)
 
         const dentistAttribute = document.getElementById("select1").value
 
@@ -79,8 +81,12 @@ const Dentist = () => {
 
         )
         console.log(response)
+        if(checkResponseStatus(response)===false){
+            return
+        }
         const data = await response.json()
         console.log(data)
+        
 
         console.log("Dentists found:")
         console.log(dentists)

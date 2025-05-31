@@ -8,7 +8,7 @@ export const checkResponseStatus = (response) => {
     }
 
     if (response.status === 204 || response.data == 0 || response.data === "" || response.data === null) {
-        window.alert("There is no client with given parameter.")
+        window.alert("There is no record with given parameter.")
         
         return false
     }

@@ -74,9 +74,12 @@ const UpdateClient = () => {
                 }
             });
             console.log(response)
-            const clientJson = await response.json()
-            console.log(clientJson)
+            const data = await response.json()
+            console.log(data)
             console.log(e)
+             if(data.message==="Rows affected: 1"){
+                window.alert("Data successfuly updated.")
+            }
         }
 
 

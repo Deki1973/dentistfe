@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useJwt } from "../contexts/JwtContext";
 import { useNavigate } from "react-router-dom";
 
-import { urlHeroku,urlLocal } from "../script/urls";
+import { checkResponseStatus, urlHeroku,urlLocal } from "../script/urls";
 
 import "../styles/AddNewDentist.scss"
 
@@ -39,6 +39,9 @@ const AddNewDentist = () => {
         }
       })
       console.log(response)
+      if(checkResponseStatus(response)===false){
+        return
+      }
       const data = await response.json();
       console.log("Successfuly added: ")
       console.log(data)
@@ -60,6 +63,7 @@ const AddNewDentist = () => {
             <tr>
               <td>Full Name: </td><td><input type="text" id="inputFullName"
                 placeholder="Full Name: " value={fullName}
+                required
                 onChange={e => {
                   setFullName(e.target.value)
                 }} /></td>
@@ -68,6 +72,7 @@ const AddNewDentist = () => {
               <td>Contact: </td><td>  <input type="text" id="inputContact"
                 placeholder="Contact: "
                 value={contact}
+                required
                 onChange={e => {
                   setContact(e.target.value)
                 }} /></td>
