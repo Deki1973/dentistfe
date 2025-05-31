@@ -24,7 +24,7 @@ const AddNewClient = () => {
         if (e.nativeEvent.submitter.id === "btnSave") {
             console.log("handle save")
 
-            const response = await fetch(`${urlLocal}/client`, {
+            const response = await fetch(`${urlHeroku}/client`, {
                 method: "POST",
                 mode: "cors",
                 body: JSON.stringify({

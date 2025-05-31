@@ -31,7 +31,7 @@ const Dentist = () => {
 
 
 
-        const response = await fetch(`${urlLocal}/dentist/getall`,
+        const response = await fetch(`${urlHeroku}/dentist/getall`,
             {
                 method: "GET",
                 mode: "cors",
@@ -68,7 +68,7 @@ const Dentist = () => {
         const attributeValue = document.getElementById("dentistAttribute").value
 
         const response = await fetch(
-            `${urlLocal}/dentist/${dentistAttribute}/${attributeValue}`,
+            `${urlHeroku}/dentist/${dentistAttribute}/${attributeValue}`,
             {
                 method: "GET",
                 mode: "cors",
