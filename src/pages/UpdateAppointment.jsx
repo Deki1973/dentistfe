@@ -143,7 +143,7 @@ const UpdateAppointment = () => {
 
 
             console.log(correctedAppointmentDateAndTime)
-
+            console.log("price: "+price)
 
 
             const updatedAppointment = {
@@ -155,7 +155,6 @@ const UpdateAppointment = () => {
                 "dentistId": dentistId,
                 "completed": completed,
                 "price": price
-
                 // key names moraju odgovarati nazivima u dto u servisu
 
 
@@ -242,17 +241,29 @@ const UpdateAppointment = () => {
 
                 </tr>
                 <tr>
-                    <td>Description: </td><td><input type="text" id="description" value={description} onChange={e => { setDescription(e.target.value) }} /></td>
+                    <td>
+                        Description: </td><td><input type="text" id="description" 
+                    value={description} 
+                    onChange={e => { setDescription(e.target.value) }} />
+                    </td>
                 </tr>
                 <tr>
-                    <td>Price: </td><td><input type="text" id="price" value={price} onChange={e => { setPrice(e.target.value) }} /></td>
+                    <td>
+                        Price: </td><td><input type="text" id="price" 
+                    value={price} 
+                    onChange={e => { 
+                        console.log(e.target.value)
+                        setPrice(e.target.value) }} />
+                    </td>
                 </tr>
                 <tr>
-                    <td>Completed: </td><td><input type="checkbox" id="completed" checked={completed} onChange={e => {
+                    <td>
+                        Completed: </td><td><input type="checkbox" id="completed" checked={completed} onChange={e => {
 
                 setCompleted((completed) => !completed)
                 console.log(completed)
-            }} /></td>
+            }} />
+            </td>
                 </tr>
 
             </table>
