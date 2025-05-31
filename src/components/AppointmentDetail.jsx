@@ -50,6 +50,7 @@ const AppointmentDetail = (prop) => {
 
         <table>
             <th colSpan="2">Appointment details: </th>
+            <tbody>
             <tr>
                 <td className="left">ID: </td><td className="right">{item.appointmentId}</td>
             </tr>
@@ -71,6 +72,7 @@ const AppointmentDetail = (prop) => {
             <tr>
                 <td className="left">Price: </td><td className="right">{item.price ? item.price : "0"}</td>
             </tr>
+            </tbody>
 
         </table>
 

@@ -7,7 +7,7 @@ import AppointmentDetail from "../components/AppointmentDetail";
 import AppointmentDetail2 from "../components/AppointmentDetail2";
 
 import "../styles/Appointment.scss"
-import { urlHeroku } from "../script/urls";
+import { urlHeroku, urlLocal } from "../script/urls";
 
 
 const Appointment = () => {
