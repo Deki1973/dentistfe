@@ -24,7 +24,7 @@ const UpdateClient = () => {
 
     const getClientById = async (e) => {
         console.log("get client by id..." + id)
-        const response = await fetch(`${urlLocal}/client/id/${id}`,
+        const response = await fetch(`${urlHeroku}/client/id/${id}`,
             {
                 method: "GET",
                 mode: "cors",
@@ -35,19 +35,19 @@ const UpdateClient = () => {
             }
         )
         console.log(response)
-        const clientJson = await response.json()
-        console.log("client json...")
-        console.log(clientJson)
+        const data = await response.json()
+        console.log("data...")
+        console.log(data)
 
+        /*
         console.log(clientJson.fullName)
         console.log(clientJson.contact)
         console.log(clientJson.note)
-
-        setFullName(clientJson.fullName)
-        setContact(clientJson.contact)
-        setNote(clientJson.note)
-        return "aaaaa"
-
+*/
+        setFullName(data.fullName)
+        setContact(data.contact)
+        setNote(data.note)
+ 
 
     }
 
@@ -59,7 +59,7 @@ const UpdateClient = () => {
         console.log(e.nativeEvent.submitter.id)
 
         if (e.nativeEvent.submitter.id === "btnSave") {
-            const response = await fetch(`${urlLocal}/client/${id}`, {
+            const response = await fetch(`${urlHeroku}/client/${id}`, {
                 method: "PUT",
                 mode: "cors",
                 body: JSON.stringify({
@@ -95,7 +95,7 @@ const UpdateClient = () => {
 
             console.log(id)
 
-            const response = await fetch(`${urlLocal}/client/${id}`,
+            const response = await fetch(`${urlHeroku}/client/${id}`,
                 {
                     method: "DELETE",
                     mode: "cors",

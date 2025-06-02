@@ -1,4 +1,4 @@
-export const urlHeroku = `https://agile-wave-96916-b84d2b45ae91.herokuapp.com`
+export const urlHeroku = `https://shrouded-lowlands-17419-2b81200cc873.herokuapp.com`
 export const urlLocal = `http://localhost:8080`
 
 export const checkResponseStatus = (response) => {

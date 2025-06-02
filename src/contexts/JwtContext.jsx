@@ -23,7 +23,7 @@ export const JwtProvider = ({ children }) => {
       //const passWord="foofoo1"
         console.log(userName+"|"+passWord)
 
-        const response=await fetch(`${urlLocal}/api/users/authenticate`,
+        const response=await fetch(`${urlHeroku}/api/users/authenticate`,
             {
                 method:"POST",
                 mode:"cors",

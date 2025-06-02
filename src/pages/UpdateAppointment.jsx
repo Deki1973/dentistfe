@@ -7,7 +7,7 @@ import axios from "axios";
 
 import "../styles/UpdateAppointment.scss"
 
-import { urlHeroku,urlLocal } from "../script/urls";
+import { urlHeroku, urlLocal } from "../script/urls";
 
 const UpdateAppointment = () => {
 
@@ -40,7 +40,7 @@ const UpdateAppointment = () => {
     const getAppointmentById = async (e) => {
 
         console.log("get appointment by id..." + id)
-        const response = await axios(`${urlLocal}/appointment/${id}`,
+        const response = await axios(`${urlHeroku}/appointment/${id}`,
             {
                 method: "GET",
                 mode: "cors",
@@ -103,7 +103,7 @@ const UpdateAppointment = () => {
         if (e.nativeEvent.submitter.id === "btnDelete") {
             const confirm = window.confirm("WARNING! This operation cannot be undone!\nAre you sure?")
             if (confirm === true) {
-                const response = await axios(`${urlLocal}/appointment/${id}`, {
+                const response = await axios(`${urlHeroku}/appointment/${id}`, {
                     method: "DELETE",
                     mode: "cors",
                     headers: {
@@ -121,8 +121,8 @@ const UpdateAppointment = () => {
         }
         if (e.nativeEvent.submitter.id === "btnSave") {
             console.log("save...")
-            
-            
+
+
             // prilikom saveovanja, moras iz appointmentDateAndTime smanjiti za 4h
 
             console.log("dateTimeChanged.." + dateTimeChanged)
@@ -143,7 +143,7 @@ const UpdateAppointment = () => {
 
 
             console.log(correctedAppointmentDateAndTime)
-            console.log("price: "+price)
+            console.log("price: " + price)
 
 
             const updatedAppointment = {
@@ -159,8 +159,8 @@ const UpdateAppointment = () => {
 
 
             }
-           
-            const response = await axios(`${urlLocal}/appointment/${id}`, {
+
+            const response = await axios(`${urlHeroku}/appointment/${id}`, {
                 method: "PUT",
                 mode: "cors",
                 data: updatedAppointment,
@@ -191,7 +191,7 @@ const UpdateAppointment = () => {
     useEffect(() => {
 
         console.log("use effect...")
-        
+
         getAppointmentById()
 
     }, []);
@@ -199,7 +199,7 @@ const UpdateAppointment = () => {
     return (<div className="updateAppointment">
 
         <h1>Update Appointment Data</h1>
-        
+
         <table>
             <tr>
                 <td>Appointment ID:</td><td>{appointmentId}</td>
@@ -214,63 +214,64 @@ const UpdateAppointment = () => {
 
         <form action="submit" onSubmit={handleSubmit}>
 
-          
+
             <table>
                 <tr>
                     <td>Date and time: </td><td>  <input type="datetime-local" id="datetime-local-1"
 
-                //defaultValue="2018-06-12T19:30"
-                defaultValue={appointmentDateAndTime}
-                onChange={e => {
+                        //defaultValue="2018-06-12T19:30"
+                        defaultValue={appointmentDateAndTime}
+                        onChange={e => {
 
-                    console.log(e.target.value + ":00.000+00:00")
-                    const newDateAndTime = e.target.value + ":00.000+00:00"
-                    setUpdateDateAndTime(newDateAndTime)
-                    setAppointmentDateAndTime(newDateAndTime)
+                            console.log(e.target.value + ":00.000+00:00")
+                            const newDateAndTime = e.target.value + ":00.000+00:00"
+                            setUpdateDateAndTime(newDateAndTime)
+                            setAppointmentDateAndTime(newDateAndTime)
 
-                    setDateTimeChanged(true)
-
-
-
-                }}
+                            setDateTimeChanged(true)
 
 
 
+                        }}
 
-            /></td>
+
+
+
+                    /></td>
 
                 </tr>
                 <tr>
                     <td>
-                        Description: </td><td><input type="text" id="description" 
-                    value={description} 
-                    onChange={e => { setDescription(e.target.value) }} />
+                        Description: </td><td>
+                        <textarea id="description" value={description} onChange={e => { setDescription(e.target.value) }}></textarea>
+
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        Price: </td><td><input type="text" id="price" 
-                    value={price} 
-                    onChange={e => { 
-                        console.log(e.target.value)
-                        setPrice(e.target.value) }} />
+                        Price: </td><td><input type="text" id="price"
+                            value={price}
+                            onChange={e => {
+                                console.log(e.target.value)
+                                setPrice(e.target.value)
+                            }} />
                     </td>
                 </tr>
                 <tr>
                     <td>
                         Completed: </td><td><input type="checkbox" id="completed" checked={completed} onChange={e => {
 
-                setCompleted((completed) => !completed)
-                console.log(completed)
-            }} />
-            </td>
+                            setCompleted((completed) => !completed)
+                            console.log(completed)
+                        }} />
+                    </td>
                 </tr>
 
             </table>
             <input type="text" value={appointmentDateAndTime} onChange={e => { setAppointmentDateAndTime(e.target.value) }} id="inputDateAndTime" />
-            
-            
-            
+
+
+
             <br />
 
             <button type="submit" id="btnSave">Save</button>
