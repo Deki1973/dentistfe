@@ -23,7 +23,7 @@ const UpdateDentist = () => {
 
     const getDentistById = async (e) => {
         console.log("get dentist by id..." + id)
-        const response = await fetch(`${urlHeroku}/dentist/id/${id}`,
+        const response = await fetch(`${urlLocal}/dentist/id/${id}`,
             {
                 method: "GET",
                 mode: "cors",
@@ -34,6 +34,10 @@ const UpdateDentist = () => {
             }
         )
         console.log(response)
+        if(response.status===204){
+            window.alert("There is no such record.")
+            return
+        }
         const data = await response.json()
         console.log("dentist json...")
         console.log(data)
@@ -56,7 +60,7 @@ const UpdateDentist = () => {
         console.log(e.nativeEvent.submitter.id)
 
         if (e.nativeEvent.submitter.id === "btnSave") {
-            const response = await fetch(`${urlHeroku}/dentist/${id}`, {
+            const response = await fetch(`${urlLocal}/dentist/${id}`, {
                 method: "PUT",
                 mode: "cors",
                 body: JSON.stringify({
@@ -99,7 +103,7 @@ const UpdateDentist = () => {
 
             console.log(id)
 
-            const response = await fetch(`${urlHeroku}/dentist/${id}`,
+            const response = await fetch(`${urlLocal}/dentist/${id}`,
                 {
                     method: "DELETE",
                     mode: "cors",
@@ -110,8 +114,17 @@ const UpdateDentist = () => {
                 }
             )
             console.log(response)
-            const data = await response.json()
-            console.log(data)
+            //console.log(await response.text())
+            if(await response.text()==="Metoda uspesno izvrsena."){
+                window.alert("Record successfuly deleted.")
+            }
+            
+            if(response.status===204){
+                window.alert("There is no such record.")
+                
+            }
+            //const data = await response.json()
+            //console.log(data)
         }
 
 

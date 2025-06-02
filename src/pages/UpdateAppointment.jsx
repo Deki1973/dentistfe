@@ -40,7 +40,7 @@ const UpdateAppointment = () => {
     const getAppointmentById = async (e) => {
 
         console.log("get appointment by id..." + id)
-        const response = await axios(`${urlHeroku}/appointment/${id}`,
+        const response = await axios(`${urlLocal}/appointment/${id}`,
             {
                 method: "GET",
                 mode: "cors",
@@ -103,7 +103,7 @@ const UpdateAppointment = () => {
         if (e.nativeEvent.submitter.id === "btnDelete") {
             const confirm = window.confirm("WARNING! This operation cannot be undone!\nAre you sure?")
             if (confirm === true) {
-                const response = await axios(`${urlHeroku}/appointment/${id}`, {
+                const response = await axios(`${urlLocal}/appointment/${id}`, {
                     method: "DELETE",
                     mode: "cors",
                     headers: {
@@ -160,7 +160,7 @@ const UpdateAppointment = () => {
 
             }
            
-            const response = await axios(`${urlHeroku}/appointment/${id}`, {
+            const response = await axios(`${urlLocal}/appointment/${id}`, {
                 method: "PUT",
                 mode: "cors",
                 data: updatedAppointment,
