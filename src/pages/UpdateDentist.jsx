@@ -23,7 +23,7 @@ const UpdateDentist = () => {
 
     const getDentistById = async (e) => {
         console.log("get dentist by id..." + id)
-        const response = await fetch(`${urlHeroku}/dentist/id/${id}`,
+        const response = await fetch(`${urlLocal}/dentist/id/${id}`,
             {
                 method: "GET",
                 mode: "cors",
@@ -60,7 +60,7 @@ const UpdateDentist = () => {
         console.log(e.nativeEvent.submitter.id)
 
         if (e.nativeEvent.submitter.id === "btnSave") {
-            const response = await fetch(`${urlHeroku}/dentist/${id}`, {
+            const response = await fetch(`${urlLocal}/dentist/${id}`, {
                 method: "PUT",
                 mode: "cors",
                 body: JSON.stringify({
@@ -103,7 +103,7 @@ const UpdateDentist = () => {
 
             console.log(id)
 
-            const response = await fetch(`${urlHeroku}/dentist/${id}`,
+            const response = await fetch(`${urlLocal}/dentist/${id}`,
                 {
                     method: "DELETE",
                     mode: "cors",
