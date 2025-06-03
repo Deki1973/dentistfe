@@ -7,7 +7,7 @@ import { useJwt } from "../contexts/JwtContext"
 import ClientDetail2 from "../components/ClientDetail2"
 import { Navigate, useNavigate } from "react-router-dom"
 import axios from "axios"
-import { checkResponseStatus, urlHeroku, urlLocal } from "../script/urls"
+import { checkResponseStatus, urlHeroku, urlLocal } from "../script/script1"
 
 import "../styles/ClientPage.scss"
 

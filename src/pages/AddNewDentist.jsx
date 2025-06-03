@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useJwt } from "../contexts/JwtContext";
 import { useNavigate } from "react-router-dom";
 
-import { checkResponseStatus, urlHeroku,urlLocal } from "../script/urls";
+import { checkResponseStatus, urlHeroku,urlLocal } from "../script/script1";
 
 import "../styles/AddNewDentist.scss"
 

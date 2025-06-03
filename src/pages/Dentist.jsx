@@ -7,7 +7,7 @@ import { useJwt } from "../contexts/JwtContext"
 import { Navigate, useNavigate } from "react-router-dom"
 
 import "../styles/DentistPage.scss"
-import { checkResponseStatus, urlHeroku, urlLocal } from "../script/urls";
+import { checkResponseStatus, urlHeroku, urlLocal } from "../script/script1";
 
 
 const Dentist = () => {

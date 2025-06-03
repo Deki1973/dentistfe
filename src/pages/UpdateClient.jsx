@@ -5,7 +5,7 @@ import { useJwt } from "../contexts/JwtContext";
 import { useNavigate } from "react-router-dom";
 import "../styles/UpdateClient.scss"
 
-import { urlHeroku,urlLocal } from "../script/urls";
+import { urlHeroku,urlLocal } from "../script/script1";
 
 const UpdateClient = () => {
 

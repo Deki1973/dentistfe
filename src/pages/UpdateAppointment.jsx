@@ -7,7 +7,7 @@ import axios from "axios";
 
 import "../styles/UpdateAppointment.scss"
 
-import { urlHeroku, urlLocal } from "../script/urls";
+import { urlHeroku, urlLocal } from "../script/script1";
 
 const UpdateAppointment = () => {
 
