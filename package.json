@@ -26,5 +26,6 @@
     "globals": "^15.15.0",
     "sass-embedded": "^1.86.0",
     "vite": "^6.2.0"
-  }
+  },
+  "proxy":"https://ancient-shelf-28732-e6ea5f258cc7.herokuapp.com"
 }
