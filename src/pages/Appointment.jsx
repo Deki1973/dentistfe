@@ -56,7 +56,8 @@ const Appointment = () => {
 
 
 
-
+        setAppointments(null)
+        setSingleAppointment(null)
 
 
 
@@ -106,6 +107,11 @@ const Appointment = () => {
                     'Content-Type': 'application/json',
                 }
             }).then((response) => {
+                window.alert(response.status)
+                if(response.data.length===0){
+                    window.alert("Nothing found")
+                    return
+                }
 
                 console.log(response)
                 if (response.data.length > 1) {
@@ -130,7 +136,10 @@ const Appointment = () => {
                 console.log("Pronadji appointment po clientu id...")
 
                 getAppointmentByClientId(e, clientId2)
-            }).catch((error) => { console.log(error.message) })
+            }).catch((error) => { 
+                window.alert(error.message)
+                console.log(error.message) 
+            })
 
         }
 
@@ -147,6 +156,7 @@ const Appointment = () => {
                     'Content-Type': 'application/json',
                 }
             }).then((response) => {
+                window.alert(response.status)
                 console.log(response)
                 if (response.data.length > 1) {
                     window.alert("Multiple response. Please, be more specific.")
@@ -324,7 +334,10 @@ const Appointment = () => {
             setAppointments(response2data)
             setSingleAppointment(null)
 
-        }).catch((error) => { console.log(error.message) })
+        }).catch((error) => {
+            window.alert(error.message)
+             console.log(error.message) 
+            })
     }
 
     const getAppointmentByDentistId = async (e, dentistId2) => {
