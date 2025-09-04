@@ -44,7 +44,7 @@ export const ThemeProvider = ({ children }) => {
     useEffect(() => {
       const currentTheme = localStorage.getItem("theme");
   
-      if (currentTheme == "dark") {
+      if (currentTheme == "light") {
         setTheme(themes.dark);
       } else {
         setTheme(themes.light);

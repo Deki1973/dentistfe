@@ -33,7 +33,7 @@ const Client = () => {
 
 
 
-        const response = await fetch(`${urlHeroku}/client/getall`,
+        const response = await fetch(`${urlLocal}/client/getall`,
             {
                 method: "GET",
                 mode: "cors",
@@ -75,7 +75,7 @@ const Client = () => {
         //console.log(clientAttribute)
         //console.log(clientAttributeValue)
 
-        const url = `${urlHeroku}/client/${clientAttribute}/${clientAttributeValue}`
+        const url = `${urlLocal}/client/${clientAttribute}/${clientAttributeValue}`
 
         console.log(url)
         const response = await axios(url, {
